@@ -58,6 +58,7 @@ export default function Editor() {
         }],
 
         draftChord: {
+            id: "",
             index: 0,
             root: 0,
             type: ""

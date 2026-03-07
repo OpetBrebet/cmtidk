@@ -4,7 +4,6 @@ import Line from "./Line.tsx"
 
 import type {
     Document as DocumentType,
-    Line as LineType,
     Chord as ChordType
 } from "./types"
 
@@ -15,32 +14,6 @@ type LinesFunction = {
 
 export default function Lines({ document, setDocument }: LinesFunction) {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-
-    const addLine = (lineIndex: number) => {
-        setDocument(prev => {
-            const copy = prev
-            prev.lines = [...prev.lines.map(line => ({ ...line, isEditing: false }))]
-
-            prev.lines.splice(lineIndex + 1, 0, {
-                id: crypto.randomUUID(),
-                text: "",
-                chords: [],
-                isEditing: true
-            })
-            return copy
-        })
-    }
-
-    const deleteLine = (lineIndex: number) => {
-        setDocument(prev => ({
-            ...prev,
-            lines: prev.lines
-                .map(line =>
-                    ({ ...line, isEditing: false })
-                )
-                .splice(lineIndex, 1)
-        }))
-    }
 
     function updateLineText(lineId: string, newText: string) {
         setDocument(prev => ({

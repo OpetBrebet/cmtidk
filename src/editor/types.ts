@@ -1,7 +1,7 @@
 import type { FieldValue, Timestamp } from "firebase/firestore/lite"
 
 export type Chord = {
-    id?: string
+    id: string
     index: number
     root: number    // Starts on C
     type: string

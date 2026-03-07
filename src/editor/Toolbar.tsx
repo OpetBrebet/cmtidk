@@ -4,10 +4,7 @@ import {
     noteToNumber
 } from "../lib/music.ts"
 
-import type {
-    Chord as ChordType,
-    Document as DocumentType
-} from "./types.ts"
+import type { Document as DocumentType } from "./types.ts"
 
 type ToolbarFunction = {
     document: (DocumentType)

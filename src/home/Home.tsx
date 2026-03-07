@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react"
 import { collection, query, orderBy, getDocs } from "firebase/firestore"
-import type { User } from "firebase/auth"
 
 import { db } from "../lib/firebase.ts"
 import { useAuth } from "../auth/AuthContext.tsx"
-
-import { useNavigate } from "react-router-dom"
 
 type DocumentSummary = {
     id: string
@@ -14,8 +11,6 @@ type DocumentSummary = {
 }
 
 export default function Home() {
-    const navigate = useNavigate()
-
     const { user } = useAuth()
 
     const [documents, setDocuments] = useState<DocumentSummary[]>([])

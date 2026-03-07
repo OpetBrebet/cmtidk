@@ -5,7 +5,7 @@ import {
 } from "react"
 
 import { numberToNote } from "../lib/music"
-import type { Line as LineType } from "../types"
+import type { Line as LineType } from "./types.ts"
 
 export default function Line({
     line,
