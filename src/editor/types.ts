@@ -33,7 +33,6 @@ export type FirestoreLine = {
 }
 
 export type FirestoreDocument = {
-    id: string
     createdAt: Timestamp | FieldValue
 
     title: string

@@ -1,38 +1,26 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore"
 import type { User } from "firebase/auth"
 
-import Lines from "./Lines.tsx"
-import Toolbar from "./Toolbar.tsx"
 import { db } from "../lib/firebase.ts"
 import { useAuth } from "../auth/AuthContext.tsx"
+import { documentToFirestore, firestoreToDocument } from "./converters.ts"
+import Lines from "./Lines.tsx"
+import Toolbar from "./Toolbar.tsx"
 import "./Editor.css"
 
 import type { Document as DocumentType, FirestoreDocument as FirestoreDocType } from "./types.ts"
 import { useNavigate, useParams } from "react-router-dom"
 
-function toFirestore(doc: DocumentType): FirestoreDocType {
-    return {
-        id: doc.id,
-        createdAt: doc.createdAt,
-        title: doc.title,
-        artist: doc.artist,
-        musicRoot: doc.musicRoot,
-        lines: doc.lines.map(line => ({
-            id: line.id,
-            text: line.text,
-            chords: line.chords
-        }))
-    }
-}
-
 async function saveDocument(document: DocumentType, user: (User | null)) {
     if (!user) return
+
+    const firestoreDocument = documentToFirestore(document)
 
     await setDoc(
         doc(db, "users", user.uid, "songs", document.id),
         {
-            ...toFirestore(document),
+            ...firestoreDocument,
             updatedAt: serverTimestamp()
         }
     )
@@ -50,23 +38,11 @@ export default function Editor() {
         artist: "",
 
         musicRoot: 0,
-        lines: [{
-            id: crypto.randomUUID(),
-            text: "",
-            chords: [],
-            isEditing: true
-        }],
-
-        draftChord: {
-            id: "",
-            index: 0,
-            root: 0,
-            type: ""
-        }
+        lines: [{ id: crypto.randomUUID(), text: "", chords: [], isEditing: true }],
+        draftChord: { id: "", index: 0, root: 0, type: "" }
     })
 
     const { user } = useAuth()
-    const [isDirty, setIsDirty] = useState(false)
 
     useEffect(() => {
         if (!id) {
@@ -81,14 +57,24 @@ export default function Editor() {
             const docRef = doc(db, "users", user.uid, "songs", id);
             const snapshot = await getDoc(docRef);
 
-            if (snapshot.exists()) setDocument(snapshot.data() as DocumentType)
+            if (!snapshot.exists()) return
+            const newDocument = firestoreToDocument(snapshot.data() as FirestoreDocType)
+            setDocument({ ...newDocument, id })
         }
 
         loadDocument()
     }, [id, user])
 
+    const documentRef = useRef(document)
+    const [isDirty, setIsDirty] = useState(false)
+
     useEffect(() => {
-        if (document.lines.length === 1 && document.lines[0].text === "") return
+        documentRef.current = document
+
+        if (
+            document.lines.length === 1 &&
+            document.lines[0].text === ""
+        ) return
         setIsDirty(true)
     }, [document])
 
@@ -96,9 +82,9 @@ export default function Editor() {
         const interval = setInterval(() => {
             if (!isDirty) return
 
-            saveDocument(document, user)
+            saveDocument(documentRef.current, user)
             setIsDirty(false)
-        }, 10000)
+        }, 5000)
 
         return () => clearInterval(interval)
     }, [isDirty])
