@@ -6,39 +6,36 @@ import {
 
 import { numberToNote } from "../../lib/music"
 import type { Document as DocumentType, Line as LineType, Chord as ChordType } from "../types.ts"
-import { AddCircleOutline, Check, DeleteOutline, Edit } from "@mui/icons-material"
+import { Add, Check, DeleteOutline, Edit } from "@mui/icons-material"
 
 export default function Line({
     line,
     currentDoc,
     setCurrentDoc,
-    isHovered,
     editingId,
     setEditingId
 }: {
     line: LineType,
     currentDoc: DocumentType
     setCurrentDoc: React.Dispatch<React.SetStateAction<DocumentType>>
-    isHovered: boolean
     editingId: string | null
     setEditingId: React.Dispatch<React.SetStateAction<string | null>>
 }) {
     const letterRefs = useRef<(HTMLSpanElement | null)[]>([])
-    const containerRef = useRef<HTMLDivElement | null>(null)
+    const chordLayerRef = useRef<HTMLDivElement | null>(null)
     const editRef = useRef<HTMLDivElement | null>(null)
 
     const [positions, setPositions] = useState<Record<string, number>>({})
 
     const isEditing = editingId === line.id
-    const showToolbar = isEditing ? true : isHovered
 
     useLayoutEffect(() => {
         if (isEditing) return
 
         const measure = () => {
-            if (!containerRef.current) return
+            if (!chordLayerRef.current) return
 
-            const containerRect = containerRef.current.getBoundingClientRect()
+            const containerRect = chordLayerRef.current.getBoundingClientRect()
             const newPositions: Record<string, number> = {}
 
             line.chords.forEach(chord => {
@@ -144,40 +141,12 @@ export default function Line({
 
     return (
         <>
-            {showToolbar && (
-                <div className="line-toolbar-sticky">
-                    <div className="line-toolbar">
-                        <button
-                            className="button-add-line"
-                            onClick={addLine}
-                        >
-                            <AddCircleOutline />
-                        </button>
-                        <button
-                            className="button-delete-line"
-                            onClick={deleteLine}
-                        >
-                            <DeleteOutline />
-                        </button>
-                        <button
-                            className="button-edit-line"
-                            onClick={() => {
-                                if (isEditing) {
-                                    finishEditing()
-                                } else {
-                                    onStartEdit()
-                                }
-                            }}
-                        >
-                            {isEditing ? <Check /> : <Edit />}
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {
-                isEditing ? (
-                    <div className="line-container">
+            <div
+                key={line.id}
+                className={`line-wrapper ${isEditing && 'editing'}`}
+            >
+                {isEditing ? (
+                    <div className="line-container editing">
                         <div
                             ref={editRef}
                             className="text-layer"
@@ -199,8 +168,8 @@ export default function Line({
                         </div>
                     </div>
                 ) : (
-                    <div className="line-container editing" ref={containerRef}>
-                        <div className="chord-layer">
+                    <div className="line-container">
+                        <div className="chord-layer" ref={chordLayerRef}>
                             {line.chords.map(chord =>
                                 <span
                                     key={chord.id}
@@ -213,7 +182,7 @@ export default function Line({
                             )}
                         </div>
                         <div className="text-layer">
-                            {line.text.split("").map((char, i) => (
+                            {line.text ? line.text.split("").map((char, i) => (
                                 <span
                                     key={i}
                                     ref={el => { (letterRefs.current[i] = el) }}
@@ -222,11 +191,42 @@ export default function Line({
                                 >
                                     {char}
                                 </span>
-                            ))}
+                            )) :
+                                <span className="placeholder">Edit this line to change text</span>
+                            }
                         </div>
                     </div>
-                )
-            }
+                )}
+
+                <div className="line-toolbar-sticky">
+                    <div className="line-toolbar">
+                        <button
+                            className="button-add-line"
+                            onClick={addLine}
+                        >
+                            <Add fontSize="small" />
+                        </button>
+                        <button
+                            className="button-delete-line"
+                            onClick={deleteLine}
+                        >
+                            <DeleteOutline fontSize="small" />
+                        </button>
+                        <button
+                            className="button-edit-line"
+                            onClick={() => {
+                                if (isEditing) {
+                                    finishEditing()
+                                } else {
+                                    onStartEdit()
+                                }
+                            }}
+                        >
+                            {isEditing ? <Check fontSize="small" /> : <Edit fontSize="small" />}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

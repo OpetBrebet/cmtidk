@@ -90,7 +90,7 @@ export default function Editor() {
     }, [isDirty])
 
     return (
-        <>
+        <div className="editor">
             <Lines
                 currentDoc={currentDoc}
                 setCurrentDoc={setCurrentDoc}
@@ -99,6 +99,6 @@ export default function Editor() {
                 currentDoc={currentDoc}
                 setCurrentDoc={setCurrentDoc}
             />
-        </>
+        </div>
     )
 }

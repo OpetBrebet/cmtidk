@@ -1,5 +1,10 @@
+.editor {
+  display: flex;
+}
+
 .lines {
-  width: fit-content;
+  width: 100%;
+  margin: 16px;
   float: left;
 }
 

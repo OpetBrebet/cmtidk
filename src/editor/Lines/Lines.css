@@ -1,11 +1,9 @@
 .line-wrapper {
   display: flex;
-  background: #f3f4f6;
   border-radius: 8px;
-  margin: 8px;
 }
 
-.line-wrapper.hovered {
+.line-wrapper:hover {
   background: #e0e0e0;
 }
 
@@ -14,38 +12,49 @@
 }
 
 .line-container {
+  width: 100%;
   position: relative;
   font-size: 18px;
+  padding: 0.1rem;
 }
 
 .line-toolbar-sticky {
-  position: sticky;
+  display: none;
+  position: relative;
+  width: 0;
+  height: 0;
+  z-index: 10;
+}
+
+.line-wrapper:hover .line-toolbar-sticky,
+.line-wrapper.editing .line-toolbar-sticky {
+  display: block;
 }
 
 .line-toolbar {
-  position: absolute;
-  z-index: 10;
-  right: 16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateY(-50%);  /* pulls it half above the line */
+    display: flex;
+    gap: 4px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    padding: 2px;
 }
 
 .line-toolbar button {
   height: 28px;
   width: 28px;
   padding: 4px;
-}
-
-.text-layer {
-  white-space: pre;
-  margin-top: 24px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
+  justify-content: center;
+  align-items: center;
 }
 
 .chord-layer {
-  position: absolute;
-  height: 0;
+  position: sticky;
 }
 
 .chord {
@@ -56,18 +65,18 @@
 /*  transform: translateX(-50%); */
 }
 
-/* show if hovered */
-.line-wrapper:hover .edit-button {
-  opacity: 1;
+.text-layer {
+  width: 100%;
+  white-space: pre;
+  margin-top: 1.2rem;
 }
 
-/* always show if editing */
-.line-container.editing .edit-button {
-  opacity: 1;
+.text-layer .placeholder {
+  color: #808080
 }
-
 
 .letter:hover {
   background-color: #ffff05;
   cursor: pointer;
 }
+
