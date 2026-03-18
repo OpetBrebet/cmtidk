@@ -11,7 +11,6 @@ export type Line = {
     id: string
     text: string
     chords: Chord[]
-    isEditing: boolean
 }
 
 export type Document = {
@@ -26,12 +25,6 @@ export type Document = {
     draftChord: Chord
 }
 
-export type FirestoreLine = {
-    id: string
-    text: string
-    chords: Chord[]
-}
-
 export type FirestoreDocument = {
     createdAt: Timestamp | FieldValue
 
@@ -39,5 +32,5 @@ export type FirestoreDocument = {
     artist: string
 
     musicRoot: number
-    lines: FirestoreLine[]
+    lines: Line[]
 }

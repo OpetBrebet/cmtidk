@@ -42,7 +42,7 @@ export default function Home() {
         <div className="documentList">
             <ul>
                 {documents.map(doc => (
-                    <li key={doc.id}>
+                    <li key={doc.id} className="documentItem">
                         <a href={`#/editor/${doc.id}`}>{doc.title} - {doc.artist}</a>
                     </li>
                 ))}

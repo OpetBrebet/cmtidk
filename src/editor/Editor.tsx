@@ -38,7 +38,7 @@ export default function Editor() {
         artist: "",
 
         musicRoot: 0,
-        lines: [{ id: crypto.randomUUID(), text: "", chords: [], isEditing: true }],
+        lines: [{ id: crypto.randomUUID(), text: "", chords: [] }],
         draftChord: { id: "", index: 0, root: 0, type: "" }
     })
 
@@ -92,12 +92,12 @@ export default function Editor() {
     return (
         <>
             <Lines
-                document={currentDoc}
-                setDocument={setCurrentDoc}
+                currentDoc={currentDoc}
+                setCurrentDoc={setCurrentDoc}
             />
             <Toolbar
-                document={currentDoc}
-                setDocument={setCurrentDoc}
+                currentDoc={currentDoc}
+                setCurrentDoc={setCurrentDoc}
             />
         </>
     )
