@@ -1,0 +1,73 @@
+.line-wrapper {
+  display: flex;
+  background: #f3f4f6;
+  border-radius: 8px;
+  margin: 8px;
+}
+
+.line-wrapper.hovered {
+  background: #e0e0e0;
+}
+
+.line-wrapper.selected {
+  border-radius: 6px;
+}
+
+.line-container {
+  position: relative;
+  font-size: 18px;
+}
+
+.line-toolbar-sticky {
+  position: sticky;
+}
+
+.line-toolbar {
+  position: absolute;
+  z-index: 10;
+  right: 16px;
+}
+
+.line-toolbar button {
+  height: 28px;
+  width: 28px;
+  padding: 4px;
+}
+
+.text-layer {
+  white-space: pre;
+  margin-top: 24px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.chord-layer {
+  position: absolute;
+  height: 0;
+}
+
+.chord {
+  position: absolute;
+  white-space: nowrap;
+  font-weight: bold;
+  cursor: pointer;
+/*  transform: translateX(-50%); */
+}
+
+/* show if hovered */
+.line-wrapper:hover .edit-button {
+  opacity: 1;
+}
+
+/* always show if editing */
+.line-container.editing .edit-button {
+  opacity: 1;
+}
+
+
+.letter:hover {
+  background-color: #ffff05;
+  cursor: pointer;
+}
