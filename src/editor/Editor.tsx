@@ -12,13 +12,13 @@ import "./Editor.css"
 import type { Document as DocumentType, FirestoreDocument as FirestoreDocType } from "./types.ts"
 import { useNavigate, useParams } from "react-router-dom"
 
-async function saveDocument(document: DocumentType, user: (User | null)) {
+async function saveDocument(currentDoc: DocumentType, user: (User | null)) {
     if (!user) return
 
-    const firestoreDocument = documentToFirestore(document)
+    const firestoreDocument = documentToFirestore(currentDoc)
 
     await setDoc(
-        doc(db, "users", user.uid, "songs", document.id),
+        doc(db, "users", user.uid, "songs", currentDoc.id),
         {
             ...firestoreDocument,
             updatedAt: serverTimestamp()
@@ -30,7 +30,7 @@ export default function Editor() {
     const { id } = useParams()
     const navigate = useNavigate()
 
-    const [document, setDocument] = useState<DocumentType>({
+    const [currentDoc, setCurrentDoc] = useState<DocumentType>({
         id: id ?? "",
         createdAt: serverTimestamp(),
 
@@ -59,24 +59,24 @@ export default function Editor() {
 
             if (!snapshot.exists()) return
             const newDocument = firestoreToDocument(snapshot.data() as FirestoreDocType)
-            setDocument({ ...newDocument, id })
+            setCurrentDoc({ ...newDocument, id })
         }
 
         loadDocument()
     }, [id, user])
 
-    const documentRef = useRef(document)
+    const documentRef = useRef(currentDoc)
     const [isDirty, setIsDirty] = useState(false)
 
     useEffect(() => {
-        documentRef.current = document
+        documentRef.current = currentDoc
 
         if (
-            document.lines.length === 1 &&
-            document.lines[0].text === ""
+            currentDoc.lines.length === 1 &&
+            currentDoc.lines[0].text === ""
         ) return
         setIsDirty(true)
-    }, [document])
+    }, [currentDoc])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -92,12 +92,12 @@ export default function Editor() {
     return (
         <>
             <Lines
-                document={document}
-                setDocument={setDocument}
+                document={currentDoc}
+                setDocument={setCurrentDoc}
             />
             <Toolbar
-                document={document}
-                setDocument={setDocument}
+                document={currentDoc}
+                setDocument={setCurrentDoc}
             />
         </>
     )

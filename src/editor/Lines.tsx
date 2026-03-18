@@ -8,15 +8,15 @@ import type {
 } from "./types"
 
 type LinesFunction = {
-    document: (DocumentType)
-    setDocument: React.Dispatch<React.SetStateAction<DocumentType>>
+    currentDoc: (DocumentType)
+    setCurrentDoc: React.Dispatch<React.SetStateAction<DocumentType>>
 }
 
-export default function Lines({ document, setDocument }: LinesFunction) {
+export default function Lines({ currentDoc, setCurrentDoc }: LinesFunction) {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
     function updateLineText(lineId: string, newText: string) {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             lines: prev.lines.map(line =>
                 line.id === lineId
@@ -27,7 +27,7 @@ export default function Lines({ document, setDocument }: LinesFunction) {
     }
 
     function startEdit(id: string) {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             lines: prev.lines.map(line =>
                 line.id === id ? { ...line, isEditing: true } : line
@@ -36,7 +36,7 @@ export default function Lines({ document, setDocument }: LinesFunction) {
     }
 
     function stopEdit(id: string) {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             lines: prev.lines.map(line =>
                 line.id === id ? { ...line, isEditing: false } : line
@@ -45,7 +45,7 @@ export default function Lines({ document, setDocument }: LinesFunction) {
     }
 
     const addChord = (lineId: string, newChord: ChordType) => {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             lines: prev.lines.map(line =>
                 line.id === lineId
@@ -56,7 +56,7 @@ export default function Lines({ document, setDocument }: LinesFunction) {
     }
 
     const deleteChord = (lineId: string, chordId: string) => {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             lines: prev.lines.map(line =>
                 line.id === lineId
@@ -73,10 +73,10 @@ export default function Lines({ document, setDocument }: LinesFunction) {
         lineId: string,
         charIndex: number
     ) => {
-        if (document.draftChord === null) return
+        if (currentDoc.draftChord === null) return
 
         const newChord = {
-            ...document.draftChord,
+            ...currentDoc.draftChord,
             id: crypto.randomUUID(),
             index: charIndex
         }
@@ -86,7 +86,7 @@ export default function Lines({ document, setDocument }: LinesFunction) {
 
     return (
         <div className="lines">
-            {document.lines.map((line, lineIndex) => (
+            {currentDoc.lines.map((line, lineIndex) => (
                 <div
                     key={line.id}
                     className={`
@@ -99,7 +99,7 @@ export default function Lines({ document, setDocument }: LinesFunction) {
                     <Line
                         key={line.id}
                         line={line}
-                        musicRoot={document.musicRoot}
+                        musicRoot={currentDoc.musicRoot}
                         onTextChange={updateLineText}
                         onStartEdit={startEdit}
                         onStopEdit={stopEdit}

@@ -7,23 +7,23 @@ import {
 import type { Document as DocumentType } from "./types.ts"
 
 type ToolbarFunction = {
-    document: (DocumentType)
-    setDocument: React.Dispatch<React.SetStateAction<DocumentType>>
+    currentDoc: (DocumentType)
+    setCurrentDoc: React.Dispatch<React.SetStateAction<DocumentType>>
 }
 
 export default function Toolbar({
-    document,
-    setDocument
+    currentDoc,
+    setCurrentDoc
 }: ToolbarFunction) {
     const setMusicRoot = (musicRoot: number) => {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             musicRoot: musicRoot
         }))
     }
 
     const setChordRoot = (chordRoot: number) => {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             draftChord: {
                 ...prev.draftChord,
@@ -33,7 +33,7 @@ export default function Toolbar({
     }
 
     const setChordType = (chordType: string) => {
-        setDocument(prev => ({
+        setCurrentDoc(prev => ({
             ...prev,
             draftChord: {
                 ...prev.draftChord,
@@ -46,7 +46,7 @@ export default function Toolbar({
         <div className="toolbar">
             <div className="toolbar-music">
                 <select name="music-root" id="music-root"
-                    value={numberToNote(document.musicRoot)}
+                    value={numberToNote(currentDoc.musicRoot)}
                     onChange={(e) => {
                         const value = noteToNumber(e.target.value)
                         setMusicRoot(value)
@@ -62,11 +62,11 @@ export default function Toolbar({
             <div className="toolbar-chords">
                 <select name="chord-root" id="chord-root"
                     value={
-                        numberToNote(document.draftChord.root + document.musicRoot)
+                        numberToNote(currentDoc.draftChord.root + currentDoc.musicRoot)
                     }
                     onChange={(e) => {
                         const value = noteToNumber(e.target.value)
-                        setChordRoot(value - document.musicRoot)
+                        setChordRoot(value - currentDoc.musicRoot)
                     }}
                 >
                     {NOTES.map(note => (
@@ -77,7 +77,7 @@ export default function Toolbar({
                 </select>
                 <input
                     type="text"
-                    value={document.draftChord.type}
+                    value={currentDoc.draftChord.type}
                     onChange={(e) => {
                         setChordType(e.target.value)
                     }}
