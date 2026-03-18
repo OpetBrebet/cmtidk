@@ -3,9 +3,9 @@ import {
     NOTES,
     numberToNote,
     noteToNumber
-} from "../lib/music.ts"
+} from "../../lib/music.ts"
 
-import type { Document as DocumentType } from "./types.ts"
+import type { Document as DocumentType } from "../types.ts"
 import { useState } from "react"
 import ProjectSettings from "./ProjectSettings.tsx"
 

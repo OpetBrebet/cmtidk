@@ -1,5 +1,5 @@
-import type { Document as DocumentType } from "./types"
-import { NOTES, numberToNote, noteToNumber } from "../lib/music"
+import type { Document as DocumentType } from "../types"
+import { NOTES, numberToNote, noteToNumber } from "../../lib/music"
 
 import "./ProjectSettings.css"
 import { Close } from "@mui/icons-material"

@@ -4,8 +4,8 @@ import {
     useState
 } from "react"
 
-import { numberToNote } from "../lib/music"
-import type { Document as DocumentType, Line as LineType, Chord as ChordType } from "./types.ts"
+import { numberToNote } from "../../lib/music"
+import type { Document as DocumentType, Line as LineType, Chord as ChordType } from "../types.ts"
 import { AddCircleOutline, Check, DeleteOutline, Edit } from "@mui/icons-material"
 
 export default function Line({

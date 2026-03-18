@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import Line from "./Line.tsx"
-import type { Document as DocumentType } from "./types"
+import type { Document as DocumentType } from "../types"
 
 import "./Lines.css"
 
