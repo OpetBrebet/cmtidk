@@ -20,13 +20,6 @@ export default function Toolbar({
 }: ToolbarFunction) {
     const [isPSOpen, setIsPSOpen] = useState(false) // PS is Project Settings
 
-    const setMusicRoot = (musicRoot: number) => {
-        setCurrentDoc(prev => ({
-            ...prev,
-            musicRoot: musicRoot
-        }))
-    }
-
     const setChordRoot = (chordRoot: number) => {
         setCurrentDoc(prev => ({
             ...prev,
