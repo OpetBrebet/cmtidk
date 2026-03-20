@@ -1,5 +1,4 @@
 import { useState } from "react"
-import type { Document as DocumentType } from "../types"
 import { NOTES, numberToNote, noteToNumber } from "../../lib/music"
 
 import "./ProjectSettings.css"
@@ -13,7 +12,7 @@ type ProjectSettingsProps = {
 export default function ProjectSettings({
     setIsPSOpen
 }: ProjectSettingsProps) {
-    const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
+    const { currentDoc, setCurrentDoc } = useDoc()
     const [marginInputs, setMarginInputs] = useState({
         top: String(currentDoc.docSettings.margins.top),
         right: String(currentDoc.docSettings.margins.right),

@@ -11,6 +11,16 @@ export type Line = {
     chords: Chord[]
 }
 
+export type LineGroup = {
+    id: string
+    lines: Line[]
+}
+
+export type Section = {
+    id: string
+    lineGroups: LineGroup[]
+}
+
 export type Margins = {
     top: number,
     bottom: number,
@@ -33,7 +43,7 @@ export type Document = {
     artist: string
 
     musicRoot: number
-    lines: Line[]
+    sections: Section[]
 }
 
 export type FirestoreDocument = {
@@ -44,7 +54,7 @@ export type FirestoreDocument = {
     artist: string
 
     musicRoot: number
-    lines: Line[]
+    sections: Section[]
 }
 
 export type EditorState = {

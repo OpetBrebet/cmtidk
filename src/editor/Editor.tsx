@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore"
 import type { User } from "firebase/auth"
 
-import { db } from "../lib/firebase.ts"
+import { useDoc } from "./DocContext"
 import { useAuth } from "../auth/AuthContext.tsx"
+import { db } from "../lib/firebase.ts"
 import { documentToFirestore, firestoreToDocument } from "./converters.ts"
-import Lines from "./Lines/Lines.tsx"
-import Toolbar from "./Toolbar/Toolbar.tsx"
-import "./Editor.css"
+import Toolbar from "./toolbar/Toolbar.tsx"
+import Page from "./page/Page.tsx"
+import type { Document as DocumentType } from "./types.ts"
 
-import type { Document as DocumentType, FirestoreDocument as FirestoreDocType } from "./types.ts"
-import { useNavigate, useParams } from "react-router-dom"
-import { DocProvider, useDoc } from "./DocContext"
+import "./Editor.css"
 
 async function saveDocument(currentDoc: DocumentType, user: (User | null)) {
     if (!user) return
@@ -65,8 +65,8 @@ export default function Editor() {
         documentRef.current = currentDoc
 
         if (
-            currentDoc.lines.length === 1 &&
-            currentDoc.lines[0].text === ""
+            currentDoc.sections[0].lineGroups[0].lines.length === 1 &&
+            currentDoc.sections[0].lineGroups[0].lines[0].text === ""
         ) return
         setIsDirty(true)
     }, [currentDoc])
@@ -85,14 +85,7 @@ export default function Editor() {
     return (
         <div className="editor">
             <div className="pages">
-                <div className="page" style={{
-                    paddingTop: `${currentDoc.docSettings.margins.top}mm`,
-                    paddingRight: `${currentDoc.docSettings.margins.right}mm`,
-                    paddingBottom: `${currentDoc.docSettings.margins.bottom}mm`,
-                    paddingLeft: `${currentDoc.docSettings.margins.left}mm`
-                }}>
-                    <Lines />
-                </div>
+                <Page />
             </div>
             <Toolbar />
         </div>

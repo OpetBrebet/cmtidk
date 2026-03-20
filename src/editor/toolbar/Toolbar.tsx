@@ -5,13 +5,12 @@ import {
     noteToNumber
 } from "../../lib/music.ts"
 
-import type { Document as DocumentType } from "../types.ts"
 import { useState } from "react"
 import ProjectSettings from "./ProjectSettings.tsx"
 import { useDoc } from "../DocContext.tsx"
 
 export default function Toolbar() {
-    const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
+    const { currentDoc, editorState, setEditorState } = useDoc()
     const [isPSOpen, setIsPSOpen] = useState(false) // PS is Project Settings
 
     const setChordRoot = (chordRoot: number) => {

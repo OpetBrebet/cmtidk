@@ -1,0 +1,14 @@
+.line-wrapper {
+  position: relative;
+  display: flex;
+  border-radius: 8px;
+}
+
+.line-wrapper:hover {
+  background: #e0e0e0;
+}
+
+.line-wrapper.selected {
+  border-radius: 6px;
+}
+

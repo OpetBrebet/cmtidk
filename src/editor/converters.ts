@@ -10,11 +10,7 @@ export function documentToFirestore(doc: DocumentType): FirestoreDocType {
         artist: doc.artist,
 
         musicRoot: doc.musicRoot,
-        lines: doc.lines.map(line => ({
-            id: line.id,
-            text: line.text,
-            chords: line.chords
-        }))
+        sections: doc.sections
     }
 }
 
