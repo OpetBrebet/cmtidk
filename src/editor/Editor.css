@@ -2,14 +2,50 @@
   display: flex;
 }
 
+.pages {
+  margin: auto;
+}
+
+.page {
+  min-width: 210mm;
+  height: 297mm;
+  outline: 1px solid #c7c7c7;
+  margin: 16px auto;
+  break-after: page;
+}
+
 .lines {
   width: 100%;
-  margin: 16px;
   float: left;
 }
 
 .toolbar {
   width: fit-content;
-  float: right;
+  position: sticky;
+  top: 0px;
+  margin-left: auto;
   padding: 4px;
+}
+
+
+@media print {
+  @page {
+    margin: 0;
+  }
+
+  .navbar, .toolbar, .placeholder {
+    display: none;
+  }
+
+  .page {
+    margin: 0;
+  }
+
+  .pages {
+    outline: none;
+    display: block!important;
+    overflow:visible!important;
+    height:auto!important;
+    position:static!important;
+  }
 }

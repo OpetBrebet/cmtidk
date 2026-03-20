@@ -17,6 +17,7 @@
     padding: 2rem;
     border-radius: 8px;
     min-width: 20vw;
+    max-width: 480px;
 }
 
 .ps-modal-header {
@@ -51,13 +52,13 @@
 }
 
 .ps-modal-items div {
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .ps-modal-items div > * {
-    margin-top: 4px;
-    margin-bottom: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .ps-modal-items div span {
@@ -68,4 +69,21 @@
     padding: 8px;
     width: 100%;
     font-size: 1rem;
+}
+
+.ps-modal-items .margin-inputs {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    padding: 0;
+}
+
+.margin-inputs div {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.margin-inputs div span {
+    color: #bcb6ae
 }

@@ -1,5 +1,3 @@
-import type { FieldValue, Timestamp } from "firebase/firestore/lite"
-
 export type Chord = {
     id: string
     index: number
@@ -13,9 +11,23 @@ export type Line = {
     chords: Chord[]
 }
 
+export type Margins = {
+    top: number,
+    bottom: number,
+    left: number,
+    right: number
+}
+
+export type DocSettings = {
+    fontSize: number
+    padding: number
+    margins: Margins
+}
+
 export type Document = {
     id: string
-    createdAt: Timestamp | FieldValue
+    createdAt: number
+    docSettings: DocSettings
 
     title: string
     artist: string
@@ -26,7 +38,8 @@ export type Document = {
 }
 
 export type FirestoreDocument = {
-    createdAt: Timestamp | FieldValue
+    createdAt: number
+    docSettings: DocSettings
 
     title: string
     artist: string

@@ -7,6 +7,7 @@ import {
 import { numberToNote } from "../../lib/music"
 import type { Document as DocumentType, Line as LineType, Chord as ChordType } from "../types.ts"
 import { Add, Check, DeleteOutline, Edit } from "@mui/icons-material"
+import { DEFAULT_LINE } from "../defaults.ts"
 
 export default function Line({
     line,
@@ -50,7 +51,7 @@ export default function Line({
         }
 
         requestAnimationFrame(measure)
-    }, [line.text, line.chords, isEditing])
+    }, [line.text, line.chords, isEditing, currentDoc.docSettings])
 
     const onTextChange = (newText: string) => {
         setCurrentDoc(prev => ({
@@ -70,7 +71,7 @@ export default function Line({
             ...prev,
             lines: prev.lines.flatMap(l =>
                 l.id === line.id
-                    ? [l, { id: id, text: "", chords: [] }]
+                    ? [l, { ...DEFAULT_LINE, id: id }]
                     : [l]
             )
         }))

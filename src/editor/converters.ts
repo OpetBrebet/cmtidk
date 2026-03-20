@@ -1,8 +1,10 @@
+import { DEFAULT_DOCUMENT } from "./defaults.ts"
 import type { Document as DocumentType, FirestoreDocument as FirestoreDocType } from "./types.ts"
 
 export function documentToFirestore(doc: DocumentType): FirestoreDocType {
     return {
         createdAt: doc.createdAt,
+        docSettings: doc.docSettings,
 
         title: doc.title,
         artist: doc.artist,
@@ -16,27 +18,10 @@ export function documentToFirestore(doc: DocumentType): FirestoreDocType {
     }
 }
 
-export function firestoreToDocument(doc: FirestoreDocType): DocumentType {
+export function firestoreToDocument(doc: any): DocumentType {
     return {
-        id: "",
-        createdAt: doc.createdAt,
-
-        title: doc.title,
-        artist: doc.artist,
-
-        musicRoot: doc.musicRoot,
-        lines: doc.lines.map(line => ({
-            id: line.id,
-            text: line.text,
-            chords: line.chords,
-            isEditing: false
-        })),
-        draftChord: {
-            id: "",
-            index: 0,
-            root: 0,
-            type: ""
-        }
+        ...DEFAULT_DOCUMENT,
+        ...doc
     }
 }
 

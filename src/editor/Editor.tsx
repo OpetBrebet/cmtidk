@@ -5,6 +5,7 @@ import type { User } from "firebase/auth"
 import { db } from "../lib/firebase.ts"
 import { useAuth } from "../auth/AuthContext.tsx"
 import { documentToFirestore, firestoreToDocument } from "./converters.ts"
+import { DEFAULT_DOC_SETTINGS, DEFAULT_DOCUMENT } from "./defaults.ts"
 import Lines from "./Lines/Lines.tsx"
 import Toolbar from "./Toolbar/Toolbar.tsx"
 import "./Editor.css"
@@ -31,15 +32,8 @@ export default function Editor() {
     const navigate = useNavigate()
 
     const [currentDoc, setCurrentDoc] = useState<DocumentType>({
+        ...DEFAULT_DOCUMENT,
         id: id ?? "",
-        createdAt: serverTimestamp(),
-
-        title: "",
-        artist: "",
-
-        musicRoot: 0,
-        lines: [{ id: crypto.randomUUID(), text: "", chords: [] }],
-        draftChord: { id: "", index: 0, root: 0, type: "" }
     })
 
     const { user } = useAuth()
@@ -58,8 +52,8 @@ export default function Editor() {
             const snapshot = await getDoc(docRef);
 
             if (!snapshot.exists()) return
-            const newDocument = firestoreToDocument(snapshot.data() as FirestoreDocType)
-            setCurrentDoc({ ...newDocument, id })
+            const newDocument = firestoreToDocument(snapshot.data())
+            setCurrentDoc({ ...DEFAULT_DOCUMENT, ...newDocument, id })
         }
 
         loadDocument()
@@ -91,14 +85,23 @@ export default function Editor() {
 
     return (
         <div className="editor">
-            <Lines
-                currentDoc={currentDoc}
-                setCurrentDoc={setCurrentDoc}
-            />
+            <div className="pages">
+                <div className="page" style={{
+                    paddingTop: `${currentDoc.docSettings.margins.top}mm`,
+                    paddingRight: `${currentDoc.docSettings.margins.right}mm`,
+                    paddingBottom: `${currentDoc.docSettings.margins.bottom}mm`,
+                    paddingLeft: `${currentDoc.docSettings.margins.left}mm`
+                }}>
+                    <Lines
+                        currentDoc={currentDoc}
+                        setCurrentDoc={setCurrentDoc}
+                    />
+                </div>
+            </div>
             <Toolbar
                 currentDoc={currentDoc}
                 setCurrentDoc={setCurrentDoc}
             />
-        </div>
+        </div >
     )
 }

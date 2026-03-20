@@ -14,7 +14,7 @@ export default function Lines({ currentDoc, setCurrentDoc }: LinesFunction) {
     const [editingId, setEditingId] = useState<string | null>(null)
 
     return (
-        <div className="lines">
+        <div className="lines" style={{ fontSize: currentDoc.docSettings.fontSize }}>
             {currentDoc.lines.map(line => (
                 <Line
                     key={line.id}
