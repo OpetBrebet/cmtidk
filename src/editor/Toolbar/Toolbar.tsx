@@ -8,20 +8,14 @@ import {
 import type { Document as DocumentType } from "../types.ts"
 import { useState } from "react"
 import ProjectSettings from "./ProjectSettings.tsx"
+import { useDoc } from "../DocContext.tsx"
 
-type ToolbarFunction = {
-    currentDoc: (DocumentType)
-    setCurrentDoc: React.Dispatch<React.SetStateAction<DocumentType>>
-}
-
-export default function Toolbar({
-    currentDoc,
-    setCurrentDoc
-}: ToolbarFunction) {
+export default function Toolbar() {
+    const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
     const [isPSOpen, setIsPSOpen] = useState(false) // PS is Project Settings
 
     const setChordRoot = (chordRoot: number) => {
-        setCurrentDoc(prev => ({
+        setEditorState(prev => ({
             ...prev,
             draftChord: {
                 ...prev.draftChord,
@@ -31,7 +25,7 @@ export default function Toolbar({
     }
 
     const setChordType = (chordType: string) => {
-        setCurrentDoc(prev => ({
+        setEditorState(prev => ({
             ...prev,
             draftChord: {
                 ...prev.draftChord,
@@ -48,8 +42,6 @@ export default function Toolbar({
 
             {isPSOpen && createPortal(
                 <ProjectSettings
-                    currentDoc={currentDoc}
-                    setCurrentDoc={setCurrentDoc}
                     setIsPSOpen={setIsPSOpen}
                 />, document.body
             )}
@@ -57,7 +49,7 @@ export default function Toolbar({
             <div className="toolbar-chords">
                 <select name="chord-root" id="chord-root"
                     value={
-                        numberToNote(currentDoc.draftChord.root + currentDoc.musicRoot)
+                        numberToNote(editorState.draftChord.root + currentDoc.musicRoot)
                     }
                     onChange={(e) => {
                         const value = noteToNumber(e.target.value)
@@ -72,7 +64,7 @@ export default function Toolbar({
                 </select>
                 <input
                     type="text"
-                    value={currentDoc.draftChord.type}
+                    value={editorState.draftChord.type}
                     onChange={(e) => {
                         setChordType(e.target.value)
                     }}

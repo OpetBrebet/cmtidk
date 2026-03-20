@@ -34,7 +34,6 @@ export type Document = {
 
     musicRoot: number
     lines: Line[]
-    draftChord: Chord
 }
 
 export type FirestoreDocument = {
@@ -46,4 +45,9 @@ export type FirestoreDocument = {
 
     musicRoot: number
     lines: Line[]
+}
+
+export type EditorState = {
+    draftChord: Chord
+    editingId: string | null
 }

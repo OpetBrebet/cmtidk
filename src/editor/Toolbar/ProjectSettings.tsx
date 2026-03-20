@@ -4,18 +4,16 @@ import { NOTES, numberToNote, noteToNumber } from "../../lib/music"
 
 import "./ProjectSettings.css"
 import { Close } from "@mui/icons-material"
+import { useDoc } from "../DocContext"
 
 type ProjectSettingsProps = {
-    currentDoc: (DocumentType)
-    setCurrentDoc: React.Dispatch<React.SetStateAction<DocumentType>>
     setIsPSOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ProjectSettings({
-    currentDoc,
-    setCurrentDoc,
     setIsPSOpen
 }: ProjectSettingsProps) {
+    const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
     const [marginInputs, setMarginInputs] = useState({
         top: String(currentDoc.docSettings.margins.top),
         right: String(currentDoc.docSettings.margins.right),

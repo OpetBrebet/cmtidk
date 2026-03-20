@@ -1,17 +1,10 @@
-import { useState } from "react"
-
 import Line from "./Line.tsx"
-import type { Document as DocumentType } from "../types"
 
 import "./Lines.css"
+import { useDoc } from "../DocContext.tsx"
 
-type LinesFunction = {
-    currentDoc: (DocumentType)
-    setCurrentDoc: React.Dispatch<React.SetStateAction<DocumentType>>
-}
-
-export default function Lines({ currentDoc, setCurrentDoc }: LinesFunction) {
-    const [editingId, setEditingId] = useState<string | null>(null)
+export default function Lines() {
+    const { currentDoc } = useDoc()
 
     return (
         <div className="lines" style={{ fontSize: currentDoc.docSettings.fontSize }}>
@@ -19,10 +12,6 @@ export default function Lines({ currentDoc, setCurrentDoc }: LinesFunction) {
                 <Line
                     key={line.id}
                     line={line}
-                    currentDoc={currentDoc}
-                    setCurrentDoc={setCurrentDoc}
-                    editingId={editingId}
-                    setEditingId={setEditingId}
                 />
             ))}
         </div>

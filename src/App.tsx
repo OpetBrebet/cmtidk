@@ -6,6 +6,7 @@ import { auth } from "./lib/firebase.ts"
 import { useAuth } from "./auth/AuthContext.tsx"
 import "./App.css"
 import Home from "./home/Home.tsx"
+import { DocProvider } from "./editor/DocContext.tsx"
 
 async function signInWithGoogle() {
   try {
@@ -34,8 +35,16 @@ function App() {
       </ul>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/editor" element={<Editor />} />
-        <Route path="/editor/:id" element={<Editor />} />
+        <Route path="/editor" element={
+          <DocProvider>
+            <Editor />
+          </DocProvider>
+        } />
+        <Route path="/editor/:id" element={
+          <DocProvider>
+            <Editor />
+          </DocProvider>
+        } />
       </Routes>
     </>
   )

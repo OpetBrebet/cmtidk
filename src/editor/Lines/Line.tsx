@@ -3,32 +3,23 @@ import {
     useLayoutEffect,
     useState
 } from "react"
+import { Add, Check, DeleteOutline, Edit } from "@mui/icons-material"
 
 import { numberToNote } from "../../lib/music"
-import type { Document as DocumentType, Line as LineType, Chord as ChordType } from "../types.ts"
-import { Add, Check, DeleteOutline, Edit } from "@mui/icons-material"
 import { DEFAULT_LINE } from "../defaults.ts"
+import { useDoc } from "../DocContext.tsx"
+import type { Document as DocumentType, Line as LineType, Chord as ChordType } from "../types.ts"
 
-export default function Line({
-    line,
-    currentDoc,
-    setCurrentDoc,
-    editingId,
-    setEditingId
-}: {
-    line: LineType,
-    currentDoc: DocumentType
-    setCurrentDoc: React.Dispatch<React.SetStateAction<DocumentType>>
-    editingId: string | null
-    setEditingId: React.Dispatch<React.SetStateAction<string | null>>
-}) {
+export default function Line({ line }: { line: LineType }) {
+    const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
+
     const letterRefs = useRef<(HTMLSpanElement | null)[]>([])
     const chordLayerRef = useRef<HTMLDivElement | null>(null)
     const editRef = useRef<HTMLDivElement | null>(null)
 
     const [positions, setPositions] = useState<Record<string, number>>({})
 
-    const isEditing = editingId === line.id
+    const isEditing = editorState.editingId === line.id
 
     useLayoutEffect(() => {
         if (isEditing) return
@@ -75,7 +66,7 @@ export default function Line({
                     : [l]
             )
         }))
-        setEditingId(id)
+        setEditorState({ ...editorState, editingId: id })
     }
 
     const deleteLine = () => {
@@ -88,11 +79,11 @@ export default function Line({
     }
 
     const onStartEdit = () => {
-        setEditingId(line.id)
+        setEditorState({ ...editorState, editingId: line.id })
     }
 
     const onStopEdit = () => {
-        setEditingId(null)
+        setEditorState({ ...editorState, editingId: null })
     }
 
     const finishEditing = () => {
@@ -129,10 +120,10 @@ export default function Line({
     }
 
     const onCharClick = (charIndex: number) => {
-        if (currentDoc.draftChord === null) return
+        if (editorState.draftChord === null) return
 
         const newChord = {
-            ...currentDoc.draftChord,
+            ...editorState.draftChord,
             id: crypto.randomUUID(),
             index: charIndex
         }

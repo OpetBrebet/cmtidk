@@ -1,4 +1,4 @@
-import type { Document, DocSettings, Chord, Line, Margins } from "./types"
+import type { Document, DocSettings, Chord, Line, Margins, EditorState } from "./types"
 
 export const DEFAULT_LINE: Line = {
     id: crypto.randomUUID(),
@@ -36,5 +36,9 @@ export const DEFAULT_DOCUMENT: Document = {
 
     musicRoot: 0,
     lines: [DEFAULT_LINE],
-    draftChord: DEFAULT_CHORD
+}
+
+export const DEFAULT_EDITOR_STATE: EditorState = {
+    draftChord: DEFAULT_CHORD,
+    editingId: null
 }
