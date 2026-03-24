@@ -1,14 +1,14 @@
-.section {
+.section-wrapper {
     width: 100%;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 }
 
-.section.selectable {
+.section-wrapper.selectable {
     cursor: pointer;
 }
 
-.section.selectable:hover {
+.section-wrapper.selectable:hover {
     background-color: #e0e0e0
 }

@@ -186,7 +186,7 @@ export default function Line({
     return (
         <div
             className={
-                `line-container
+                `line-wrapper
                 ${isEditing ? 'editing' : ''}
                 ${isSelectable ? 'hoverable' : ''}`
             }

@@ -1,4 +1,4 @@
-.line-container {
+.line-wrapper {
   width: 100%;
   position: relative;
   padding: 0.1rem;
@@ -13,8 +13,8 @@
   z-index: 10;
 }
 
-.line-wrapper.hoverable .line-container:hover .line-toolbar-sticky,
-.line-container.editing .line-toolbar-sticky {
+.line-container.hoverable .line-wrapper:hover .line-toolbar-sticky,
+.line-wrapper.editing .line-toolbar-sticky {
   display: block;
 }
 

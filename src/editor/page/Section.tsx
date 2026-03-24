@@ -60,10 +60,10 @@ export default function Section({ section }: SectionProps) {
             })
         }
     }
+
     return (
         <div
-            key={section.id}
-            className={`section ${isSelectable ? 'selectable' : ''}`}
+            className={`section-wrapper ${isSelectable ? 'selectable' : ''}`}
             onClick={() => onSectionClick(section.id)}
         >
             {section.lineGroups.map(lineGroup => (

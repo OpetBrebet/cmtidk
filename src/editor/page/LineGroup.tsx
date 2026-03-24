@@ -22,7 +22,7 @@ export default function LineGroup({ lineGroup, sectionId }: LinesGroupProps) {
             {lineGroup.lines.map(line => (
                 <div
                     key={line.id}
-                    className={`line-wrapper ${isHoverable ? 'hoverable' : ''}`}
+                    className={`line-container ${isHoverable ? 'hoverable' : ''}`}
                 >
                     <Line
                         key={line.id}
