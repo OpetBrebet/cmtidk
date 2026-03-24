@@ -1,10 +1,14 @@
+.line-group {
+  width: 100%;
+}
+
 .line-wrapper {
   position: relative;
   display: flex;
   border-radius: 8px;
 }
 
-.line-wrapper:hover {
+.line-wrapper.hoverable:hover {
   background: #e0e0e0;
 }
 

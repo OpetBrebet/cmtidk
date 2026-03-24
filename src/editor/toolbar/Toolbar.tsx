@@ -33,6 +33,13 @@ export default function Toolbar() {
         }))
     }
 
+    const setEditingMode = (editingMode: string) => {
+        setEditorState(prev => ({
+            ...prev,
+            editingMode: editingMode
+        }))
+    }
+
     return (
         <div className="toolbar">
             <button onClick={() => setIsPSOpen(true)}>
@@ -69,6 +76,16 @@ export default function Toolbar() {
                     }}
                     placeholder="Chord (e.g. Am, G7)"
                 />
+            </div>
+            <div className="toolbar-columns">
+                <button
+                    onClick={() => setEditingMode("setSingleColumn")}>
+                    Single Column
+                </button>
+                <button
+                    onClick={() => setEditingMode("setDualColumn")}>
+                    Dual Column
+                </button>
             </div>
         </div>
     )

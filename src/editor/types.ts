@@ -60,4 +60,5 @@ export type FirestoreDocument = {
 export type EditorState = {
     draftChord: Chord
     editingId: string | null
+    editingMode: string | null
 }

@@ -8,7 +8,7 @@ import { Add, Check, DeleteOutline, Edit } from "@mui/icons-material"
 import { numberToNote } from "../../lib/music"
 import { DEFAULT_LINE } from "../defaults.ts"
 import { useDoc } from "../DocContext.tsx"
-import type { LineGroup as LineGroupType, Line as LineType, Chord as ChordType } from "../types.ts"
+import type { LineGroup as LineGroupType, Line as LineType, Chord as ChordType, Section as SectionType } from "../types.ts"
 
 import "./Line.css"
 
@@ -38,6 +38,7 @@ export default function Line({
     if (!lineGroup) throw new Error(`LineGroup ${lineGroupId} not found`)
 
     const isEditing = editorState.editingId === line.id
+    const isSelectable = editorState.editingMode === null
 
     useLayoutEffect(() => {
         if (isEditing) return
@@ -62,20 +63,26 @@ export default function Line({
         requestAnimationFrame(measure)
     }, [line.text, line.chords, isEditing, currentDoc.docSettings])
 
-    const setLineGroup = (newLineGroup: LineGroupType) => {
+    const setSection = (newSection: SectionType) => {
         setCurrentDoc(prev => ({
             ...prev,
-            sections: currentDoc.sections.map(section =>
-                section.id === sectionId ? {
-                    ...section,
-                    lineGroups: section.lineGroups.map(lineGroup =>
-                        lineGroup.id === lineGroupId ? {
-                            ...newLineGroup
-                        } : lineGroup
-                    )
-                } : section
+            sections: currentDoc.sections.map(s =>
+                s.id === sectionId ? {
+                    ...newSection
+                } : s
             )
         }))
+    }
+
+    const setLineGroup = (newLineGroup: LineGroupType) => {
+        setSection({
+            ...section,
+            lineGroups: section.lineGroups.map(lg =>
+                lg.id === lineGroupId ? {
+                    ...newLineGroup
+                } : lg
+            )
+        })
     }
 
     const onTextChange = (newText: string) => {
@@ -102,9 +109,22 @@ export default function Line({
     }
 
     const deleteLine = () => {
+        if (
+            currentDoc.sections.length === 1 &&
+            currentDoc.sections[0]?.lineGroups.length === 1 &&
+            currentDoc.sections[0]?.lineGroups[0]?.lines.length === 1
+        ) return
+
         setLineGroup({
             ...lineGroup,
             lines: lineGroup.lines.filter(l => l.id !== line.id)
+        })
+
+        if (lineGroup.lines.length > 1) return
+
+        setSection({
+            ...section,
+            lineGroups: section.lineGroups.filter(lg => lg.id !== lineGroup.id)
         })
     }
 
@@ -128,29 +148,31 @@ export default function Line({
         setLineGroup({
             ...lineGroup,
             lines: lineGroup.lines.map(l =>
-                l.id === line.id
-                    ? { ...l, chords: [...l.chords, newChord] }
-                    : l
+                l.id === line.id ? {
+                    ...l,
+                    chords: [...l.chords, newChord]
+                } : l
             )
         })
     }
 
     const onChordClick = (chordId: string) => {
+        if (isSelectable === null) return
+
         setLineGroup({
             ...lineGroup,
             lines: lineGroup.lines.map(l =>
-                l.id === line.id
-                    ? {
-                        ...l,
-                        chords: l.chords.filter(chord => chord.id !== chordId)
-                    }
-                    : l
+                l.id === line.id ? {
+                    ...l,
+                    chords: l.chords.filter(chord => chord.id !== chordId)
+                } : l
             )
         })
     }
 
     const onCharClick = (charIndex: number) => {
         if (editorState.draftChord === null) return
+        if (isSelectable === null) return
 
         const newChord = {
             ...editorState.draftChord,
@@ -162,7 +184,13 @@ export default function Line({
     }
 
     return (
-        <div className={`line-container ${isEditing && 'editing'}`}>
+        <div
+            className={
+                `line-container
+                ${isEditing ? 'editing' : ''}
+                ${isSelectable ? 'hoverable' : ''}`
+            }
+        >
             <div className="line-toolbar-sticky">
                 <div className="line-toolbar">
                     <button
@@ -218,7 +246,7 @@ export default function Line({
                         {line.chords.map(chord =>
                             <span
                                 key={chord.id}
-                                className="chord"
+                                className={`chord ${isSelectable ? 'selectable' : ''}`}
                                 style={{ left: positions[chord.id] ?? 0 }}
                                 onClick={() => onChordClick(chord.id)}
                             >
@@ -232,7 +260,7 @@ export default function Line({
                                 key={i}
                                 ref={el => { (letterRefs.current[i] = el) }}
                                 onClick={() => onCharClick(i)}
-                                className="letter"
+                                className={`letter ${isSelectable ? 'selectable' : ''}`}
                             >
                                 {char}
                             </span>

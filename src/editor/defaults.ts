@@ -50,5 +50,6 @@ export const DEFAULT_DOCUMENT: Document = {
 
 export const DEFAULT_EDITOR_STATE: EditorState = {
     draftChord: DEFAULT_CHORD,
-    editingId: null
+    editingId: null,
+    editingMode: null
 }
