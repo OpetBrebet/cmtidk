@@ -10,14 +10,14 @@ type SectionProps = {
 }
 
 export default function Section({ section }: SectionProps) {
-    const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
+    const { setCurrentDoc, editorState, setEditorState } = useDoc()
 
     const isSelectable = (editorState.editingMode === 'setSingleColumn') || (editorState.editingMode === 'setDualColumn')
 
     const setSection = (sectionId: string, newSection: SectionType) => {
         setCurrentDoc(prev => ({
             ...prev,
-            sections: currentDoc.sections.map(s =>
+            sections: prev.sections.map(s =>
                 s.id === sectionId ? {
                     ...newSection
                 } : s
@@ -26,7 +26,9 @@ export default function Section({ section }: SectionProps) {
     }
 
     const onSectionClick = (sectionId: string) => {
-        setEditorState({ ...editorState, editingMode: null })
+        if (!isSelectable) return
+
+        setEditorState(prev => ({ ...prev, editingMode: null }))
 
         if (editorState.editingMode === 'setSingleColumn') {
             if (section.lineGroups.length === 1) return
