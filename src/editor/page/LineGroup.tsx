@@ -10,15 +10,12 @@ type LineGroupProps = {
 }
 
 export default function LineGroup({ lineGroup, sectionId }: LineGroupProps) {
-    const { currentDoc, editorState } = useDoc()
+    const { editorState } = useDoc()
 
     const isHoverable = editorState.editingMode === null
 
     return (
-        <div
-            className={`line-group`}
-            style={{ fontSize: currentDoc.docSettings.fontSize }}
-        >
+        <div className={`line-group`}>
             {lineGroup.lines.map(line => (
                 <div
                     key={line.id}

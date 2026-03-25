@@ -100,6 +100,7 @@ export default function Page() {
 
     return (
         <div className="page" style={{
+            fontSize: currentDoc.docSettings.fontSize,
             paddingTop: `${currentDoc.docSettings.margins.top}mm`,
             paddingRight: `${currentDoc.docSettings.margins.right}mm`,
             paddingBottom: `${currentDoc.docSettings.margins.bottom}mm`,

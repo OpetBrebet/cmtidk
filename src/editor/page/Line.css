@@ -1,7 +1,6 @@
 .line-wrapper {
   width: 100%;
   position: relative;
-  padding: 0.1rem;
 }
 
 .line-toolbar-sticky {
@@ -55,7 +54,7 @@
 .text-layer {
   width: 100%;
   white-space: pre;
-  margin-top: 1.2rem;
+  margin-top: 1.2em;
 }
 
 .text-layer .placeholder {
