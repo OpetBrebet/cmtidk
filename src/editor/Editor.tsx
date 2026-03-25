@@ -42,7 +42,7 @@ export default function Editor() {
             return
         }
 
-        setCurrentDoc({ ...currentDoc, id: id })
+        setCurrentDoc(prev => ({ ...prev, id: id }))
 
         if (!user?.uid) return
 
@@ -52,7 +52,7 @@ export default function Editor() {
 
             if (!snapshot.exists()) return
             const newDocument = firestoreToDocument(snapshot.data())
-            setCurrentDoc({ ...currentDoc, ...newDocument, id })
+            setCurrentDoc(prev => ({ ...prev, ...newDocument, id }))
         }
 
         loadDocument()

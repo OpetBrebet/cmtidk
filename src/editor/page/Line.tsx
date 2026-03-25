@@ -105,7 +105,7 @@ export default function Line({
                 ] : [l]
             )
         })
-        setEditorState({ ...editorState, editingId: newLine.id })
+        setEditorState(prev => ({ ...prev, editingId: newLine.id }))
     }
 
     const deleteLine = () => {
@@ -136,11 +136,11 @@ export default function Line({
     }
 
     const onStartEdit = () => {
-        setEditorState({ ...editorState, editingId: line.id })
+        setEditorState(prev => ({ ...prev, editingId: line.id }))
     }
 
     const onStopEdit = () => {
-        setEditorState({ ...editorState, editingId: null })
+        setEditorState(prev => ({ ...prev, editingId: null }))
     }
 
     const finishEditing = () => {
