@@ -33,12 +33,12 @@
     margin: 0;
   }
 
-  .navbar, .toolbar, .placeholder {
-    display: none;
+  .section-wrapper {
+    outline: none;
   }
 
-  .page {
-    margin: 0;
+  .navbar, .toolbar, .placeholder {
+    display: none;
   }
 
   .pages {

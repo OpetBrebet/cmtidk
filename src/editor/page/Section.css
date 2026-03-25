@@ -1,5 +1,6 @@
 .section-wrapper {
     width: 100%;
+    outline: 1px solid #c7c7c7;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -10,5 +11,5 @@
 }
 
 .section-wrapper.selectable:hover {
-    background-color: #e0e0e0
+    background-color: #e0e0e0;
 }
