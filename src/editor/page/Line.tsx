@@ -6,11 +6,11 @@ import {
 import { Add, Check, DeleteOutline, Edit } from "@mui/icons-material"
 
 import { numberToNote } from "../../lib/music"
-import { DEFAULT_LINE } from "../defaults.ts"
 import { useDoc } from "../DocContext.tsx"
 import type { LineGroup as LineGroupType, Line as LineType, Chord as ChordType, Section as SectionType } from "../types.ts"
 
 import "./Line.css"
+import { createLine } from "../factories.ts"
 
 type LineProps = {
     line: LineType,
@@ -95,17 +95,17 @@ export default function Line({
     }
 
     const addLine = () => {
-        const id = crypto.randomUUID()
+        const newLine = createLine()
 
         setLineGroup({
             ...lineGroup,
             lines: lineGroup.lines.flatMap(l =>
                 l.id === line.id ? [
-                    l, { ...DEFAULT_LINE, id: id }
+                    l, newLine
                 ] : [l]
             )
         })
-        setEditorState({ ...editorState, editingId: id })
+        setEditorState({ ...editorState, editingId: newLine.id })
     }
 
     const deleteLine = () => {
@@ -126,6 +126,13 @@ export default function Line({
             ...section,
             lineGroups: section.lineGroups.filter(lg => lg.id !== lineGroup.id)
         })
+
+        if (section.lineGroups.length > 1) return
+
+        setCurrentDoc(prev => ({
+            ...prev,
+            sections: prev.sections.filter(s => s.id !== section.id)
+        }))
     }
 
     const onStartEdit = () => {

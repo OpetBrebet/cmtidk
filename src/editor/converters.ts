@@ -1,4 +1,4 @@
-import { DEFAULT_DOCUMENT } from "./defaults.ts"
+import { createDocument } from "./factories.ts"
 import type { Document as DocumentType, FirestoreDocument as FirestoreDocType } from "./types.ts"
 
 export function documentToFirestore(doc: DocumentType): FirestoreDocType {
@@ -16,7 +16,7 @@ export function documentToFirestore(doc: DocumentType): FirestoreDocType {
 
 export function firestoreToDocument(doc: any): DocumentType {
     return {
-        ...DEFAULT_DOCUMENT,
+        ...createDocument(),
         ...doc
     }
 }

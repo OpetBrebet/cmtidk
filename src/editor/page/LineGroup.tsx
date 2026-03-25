@@ -4,12 +4,12 @@ import { useDoc } from '../DocContext'
 
 import "./LineGroup.css"
 
-type LinesGroupProps = {
+type LineGroupProps = {
     lineGroup: LineGroupType
     sectionId: string
 }
 
-export default function LineGroup({ lineGroup, sectionId }: LinesGroupProps) {
+export default function LineGroup({ lineGroup, sectionId }: LineGroupProps) {
     const { currentDoc, editorState } = useDoc()
 
     const isHoverable = editorState.editingMode === null

@@ -1,7 +1,7 @@
-import type { Section as SectionType } from "../types"
-import { DEFAULT_LINE, DEFAULT_LINE_GROUP } from "../defaults"
+import { createLineGroup } from "../factories"
 import { useDoc } from "../DocContext"
 import LineGroup from "./LineGroup"
+import type { Section as SectionType } from "../types"
 
 import "./Section.css"
 
@@ -48,14 +48,7 @@ export default function Section({ section }: SectionProps) {
                 ...section,
                 lineGroups: [
                     ...section.lineGroups,
-                    {
-                        ...DEFAULT_LINE_GROUP,
-                        id: crypto.randomUUID(),
-                        lines: [{
-                            ...DEFAULT_LINE,
-                            id: crypto.randomUUID()
-                        }]
-                    }
+                    createLineGroup()
                 ]
             })
         }

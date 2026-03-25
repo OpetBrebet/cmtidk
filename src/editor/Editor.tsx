@@ -65,8 +65,8 @@ export default function Editor() {
         documentRef.current = currentDoc
 
         if (
-            currentDoc.sections[0].lineGroups[0].lines.length === 1 &&
-            currentDoc.sections[0].lineGroups[0].lines[0].text === ""
+            currentDoc.sections[0]?.lineGroups[0]?.lines.length === 1 &&
+            currentDoc.sections[0]?.lineGroups[0]?.lines[0]?.text === ""
         ) return
         setIsDirty(true)
     }, [currentDoc])

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-import { DEFAULT_DOCUMENT, DEFAULT_EDITOR_STATE } from "./defaults";
+import { createDocument, createEditorState } from "./factories";
 import type { Document as DocumentType, EditorState as EditorStateType } from "./types"
 
 type DocContextType = {
@@ -19,8 +19,8 @@ export const useDoc = () => {
 }
 
 export const DocProvider = ({ children }: { children: React.ReactNode }) => {
-    const [currentDoc, setCurrentDoc] = useState<DocumentType>(DEFAULT_DOCUMENT)
-    const [editorState, setEditorState] = useState<EditorStateType>(DEFAULT_EDITOR_STATE)
+    const [currentDoc, setCurrentDoc] = useState<DocumentType>(createDocument())
+    const [editorState, setEditorState] = useState<EditorStateType>(createEditorState())
 
     return (
         <DocContext.Provider value={{ currentDoc, setCurrentDoc, editorState, setEditorState }}>
