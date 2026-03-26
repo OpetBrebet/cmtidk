@@ -84,10 +84,10 @@ export default function Editor() {
 
     return (
         <div className="editor">
+            <Toolbar />
             <div className="pages">
                 <Page />
             </div>
-            <Toolbar />
         </div>
     )
 }

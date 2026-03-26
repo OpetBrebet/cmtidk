@@ -1,0 +1,66 @@
+.toolbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: #f6f6f6;
+  z-index: 50;
+
+  padding: 0.5em 0;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.toolbar * {
+    font-size: 0.9rem;
+}
+
+.toolbar button {
+    padding: 0.2em 0.4em;
+    background: none;
+}
+
+.toolbar button:hover {
+    background-color: #e6e6e6;
+}
+
+.toolbar input,
+.toolbar select {
+    padding: 0 0.4em;
+    height: 2.4em;
+    background: none;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+}
+
+.toolbar input:hover,
+.toolbar select:hover {
+    background-color: #e6e6e6;
+}
+
+.toolbar select {
+    cursor: pointer;
+}
+
+.toolbar > div {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5em;
+    gap: 0.6em;
+}
+
+.toolbar-divider {
+    height: 2.5em;
+    margin: 0;
+}
+
+.toolbar-settings-button {
+    display: flex;
+    align-items: center;
+    gap: 0.3em
+}
+
+.toolbar-chords {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}

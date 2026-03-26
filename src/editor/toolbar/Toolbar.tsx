@@ -1,13 +1,16 @@
 import { createPortal } from "react-dom"
+import { useState } from "react"
+
 import {
     NOTES,
     numberToNote,
     noteToNumber
 } from "../../lib/music.ts"
-
-import { useState } from "react"
 import ProjectSettings from "./ProjectSettings.tsx"
 import { useDoc } from "../DocContext.tsx"
+
+import "./Toolbar.css"
+import { FormatAlignJustify, Settings, VerticalSplit } from "@mui/icons-material"
 
 export default function Toolbar() {
     const { currentDoc, editorState, setEditorState } = useDoc()
@@ -42,18 +45,28 @@ export default function Toolbar() {
 
     return (
         <div className="toolbar">
-            <button onClick={() => setIsPSOpen(true)}>
-                Project Settings
-            </button>
+            <div className="toolbar-project-settings">
+                <button className="toolbar-settings-button" onClick={() => setIsPSOpen(true)}>
+                    <div>
+                        <Settings />
+                    </div>
+                    Project Settings
+                </button>
 
-            {isPSOpen && createPortal(
-                <ProjectSettings
-                    setIsPSOpen={setIsPSOpen}
-                />, document.body
-            )}
+                {isPSOpen && createPortal(
+                    <ProjectSettings
+                        setIsPSOpen={setIsPSOpen}
+                    />, document.body
+                )}
+            </div>
+
+            <hr className="toolbar-divider" />
 
             <div className="toolbar-chords">
-                <select name="chord-root" id="chord-root"
+                <select
+                    name="chord-root"
+                    id="chord-root"
+                    style={{ width: 48 }}
                     value={
                         numberToNote(editorState.draftChord.root + currentDoc.musicRoot)
                     }
@@ -77,14 +90,17 @@ export default function Toolbar() {
                     placeholder="Chord (e.g. Am, G7)"
                 />
             </div>
+
+            <hr className="toolbar-divider" />
+
             <div className="toolbar-columns">
                 <button
                     onClick={() => setEditingMode("setSingleColumn")}>
-                    Single Column
+                    <FormatAlignJustify fontSize="small" />
                 </button>
                 <button
                     onClick={() => setEditingMode("setDualColumn")}>
-                    Dual Column
+                    <VerticalSplit fontSize="medium" />
                 </button>
             </div>
         </div>
