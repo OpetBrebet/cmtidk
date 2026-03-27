@@ -1,15 +1,56 @@
 .section-wrapper {
     width: 100%;
-    outline: 1px solid #c7c7c7;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 }
 
 .section-wrapper.selectable {
+    outline: 1px solid #c7c7c7;
     cursor: pointer;
 }
 
 .section-wrapper.selectable:hover {
     background-color: #e0e0e0;
+}
+
+.section-divider {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.section-divider-line {
+    width: 2px;
+    border-radius: 4px;
+    background: #e0e0e0;
+    height: 90%;
+    transition: background 0.15s;
+}
+
+.section-divider:hover .section-divider-line {
+    position: absolute;
+    height: 100%;
+    background: #a6a6a6;
+    inset: 0 -1px;
+    width: 4px
+}
+
+.section-divider-detect {
+    position: absolute;
+    inset: 0 -6px;
+    width: 14px;
+    cursor: col-resize;
+}
+
+.section-divider button {
+    position: absolute;
+    inset: 102px -16px;
+    padding: 0;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.section-divider:hover button {
+    opacity: 1;
 }

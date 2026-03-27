@@ -4,14 +4,14 @@
 }
 
 .pages {
-  margin: auto;
+  margin: 16px auto;
 }
 
 .page {
   min-width: 210mm;
   height: 297mm;
   outline: 1px solid #c7c7c7;
-  margin: 16px auto;
+  margin: auto;
   break-after: page;
 }
 
@@ -33,7 +33,8 @@
     display: none;
   }
 
-  .pages {
+  .page {
+    margin: 0;
     outline: none;
     display: block!important;
     overflow:visible!important;

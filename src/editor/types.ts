@@ -19,6 +19,7 @@ export type LineGroup = {
 export type Section = {
     id: string
     lineGroups: LineGroup[]
+    splitOffset: number
 }
 
 export type Margins = {

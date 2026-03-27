@@ -13,7 +13,8 @@ export const createLineGroup = (): LineGroup => ({
 
 export const createSection = (): Section => ({
     id: crypto.randomUUID(),
-    lineGroups: [createLineGroup()]
+    lineGroups: [createLineGroup()],
+    splitOffset: 0
 })
 
 export const createChord = (): Chord => ({
