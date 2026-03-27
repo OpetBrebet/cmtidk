@@ -1,3 +1,11 @@
+.page {
+  width: 210mm;
+  height: 297mm;
+  outline: 1px solid #c7c7c7;
+  margin: auto;
+  break-after: page;
+}
+
 .section-add-line-pos {
     position: relative;
     height: 0;

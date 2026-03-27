@@ -41,6 +41,7 @@
     inset: 0 -6px;
     width: 14px;
     cursor: col-resize;
+    touch-action: none;
 }
 
 .section-divider button {
