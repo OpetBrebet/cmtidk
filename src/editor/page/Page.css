@@ -10,7 +10,7 @@
     height: 1em;
     width: 70%;
     transform: translateY(-50%);
-    z-index: 20;
+    z-index: var(--z-section-divider);
     opacity: 0;
 
     display: flex;

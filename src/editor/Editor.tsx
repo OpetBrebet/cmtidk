@@ -12,6 +12,7 @@ import Page from "./page/Page.tsx"
 import type { Document as DocumentType } from "./types.ts"
 
 import "./Editor.css"
+import "./variables.css"
 
 async function saveDocument(currentDoc: DocumentType, user: (User | null)) {
     if (!user) return

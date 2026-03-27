@@ -1,0 +1,8 @@
+:root {
+    --z-base: 1;
+    --z-toolbar: 10;
+    --z-linegroup-divider: 15;
+    --z-section-divider: 20;
+    --z-toolbar: 50;
+    --z-modal: 100;
+}
