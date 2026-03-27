@@ -4,14 +4,16 @@ import { useDoc } from "../DocContext.tsx"
 import "./Page.css"
 import type { Section as SectionType } from "../types.ts"
 import { createLine, createSection } from "../factories.ts"
+import { createPortal } from "react-dom"
 
 type AddLineProps = {
     section?: SectionType
 }
 
 function AddLine({ section }: AddLineProps) {
-    const { setCurrentDoc } = useDoc()
+    const { setCurrentDoc, editorState, setEditorState } = useDoc()
 
+    const isVisible = editorState.editingMode === "addLine"
 
     const onAddLineClick = () => {
         setCurrentDoc(prev => {
@@ -20,6 +22,11 @@ function AddLine({ section }: AddLineProps) {
                 ? sections.findIndex(s => s.id === section.id)
                 : 0
             const target = sections[sectionIndex]
+
+            setEditorState(prev => ({
+                ...prev,
+                editingMode: null
+            }))
 
             if (!section) { // if called from the top, add line/section before the existing ones
                 if (target.lineGroups.length === 1) {
@@ -86,17 +93,20 @@ function AddLine({ section }: AddLineProps) {
 
     return (
         <div className="section-add-line-pos">
-            <div className="section-add-line-offset">
-                <button onClick={onAddLineClick}>
-                    Add Line
-                </button>
+            <div
+                className={`section-add-line-offset ${isVisible && 'visible'}`}
+                onClick={onAddLineClick}
+            >
+                <span>Add Line</span>
             </div>
         </div>
     )
 }
 
 export default function Page() {
-    const { currentDoc } = useDoc()
+    const { currentDoc, editorState, setEditorState } = useDoc()
+
+    const isVisible = editorState.editingMode === "addLine"
 
     return (
         <div className="page" style={{
@@ -121,6 +131,19 @@ export default function Page() {
                     />
                 </div>
             ))}
+
+            {createPortal(
+                <div
+                    className={`section-add-line-overlay ${isVisible && 'visible'}`}
+                    onClick={() => {
+                        setEditorState(prev => ({
+                            ...prev,
+                            editingMode: null
+                        }))
+                    }}
+                />,
+                document.body
+            )}
         </div>
     )
 }

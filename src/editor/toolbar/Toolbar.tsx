@@ -10,7 +10,7 @@ import ProjectSettings from "./ProjectSettings.tsx"
 import { useDoc } from "../DocContext.tsx"
 
 import "./Toolbar.css"
-import { FormatAlignJustify, Settings, VerticalSplit } from "@mui/icons-material"
+import { FormatAlignJustify, PlaylistAdd, Settings, VerticalSplit } from "@mui/icons-material"
 
 export default function Toolbar() {
     const { currentDoc, editorState, setEditorState } = useDoc()
@@ -46,7 +46,10 @@ export default function Toolbar() {
     return (
         <div className="toolbar">
             <div className="toolbar-project-settings">
-                <button className="toolbar-settings-button" onClick={() => setIsPSOpen(true)}>
+                <button
+                    className="toolbar-settings-button"
+                    onClick={() => setIsPSOpen(true)}
+                >
                     <div>
                         <Settings />
                     </div>
@@ -95,12 +98,24 @@ export default function Toolbar() {
 
             <div className="toolbar-columns">
                 <button
-                    onClick={() => setEditingMode("setSingleColumn")}>
+                    onClick={() => setEditingMode("setSingleColumn")}
+                >
                     <FormatAlignJustify fontSize="small" />
                 </button>
                 <button
-                    onClick={() => setEditingMode("setDualColumn")}>
+                    onClick={() => setEditingMode("setDualColumn")}
+                >
                     <VerticalSplit fontSize="medium" />
+                </button>
+            </div>
+
+            <hr className="toolbar-divider" />
+
+            <div className="toolbar-add-line">
+                <button
+                    onClick={() => setEditingMode("addLine")}
+                >
+                    <PlaylistAdd fontSize="medium" />
                 </button>
             </div>
         </div>

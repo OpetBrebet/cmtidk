@@ -7,18 +7,51 @@
 
 .section-add-line-offset {
     position: absolute;
-    height: 1em;
-    width: 70%;
+    height: 2em;
+    width: 100%;
     transform: translateY(-50%);
-    z-index: var(--z-section-divider);
+
+    border: 2px dashed black;
     opacity: 0;
+    background: rgba(255, 255, 255, 0.5);
+    transition: opacity 0.15s, background 0.15s;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    pointer-events: none;
+
+    z-index: var(--z-section-divider);
 }
 
-.section-add-line-offset:hover {
+.section-add-line-offset.visible {
     opacity: 1;
-    background-color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.5);
+
+    pointer-events: auto;
+}
+
+.section-add-line-offset.visible:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.section-add-line-overlay {
+    position: fixed;
+    z-index: calc(var(--z-section-divider) - 1);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    pointer-events: none;
+
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.15s;
+}
+
+.section-add-line-overlay.visible {
+    pointer-events: auto;
+
+    background: rgba(0, 0, 0, 0.3);
 }
