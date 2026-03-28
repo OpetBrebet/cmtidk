@@ -58,8 +58,17 @@ export type FirestoreDocument = {
     sections: Section[]
 }
 
+export type ToolbarProperties = {
+    lineId: string | null
+    lineGroupId: string | null
+    sectionId: string | null
+    lineTop: number | null
+    lineLeft: number | null
+    lineWidth: number | null
+}
+
 export type EditorState = {
     draftChord: Chord
-    editingId: string | null
     editingMode: string | null
+    toolbarProperties: ToolbarProperties
 }

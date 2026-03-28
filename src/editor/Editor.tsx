@@ -13,6 +13,7 @@ import type { Document as DocumentType } from "./types.ts"
 
 import "./Editor.css"
 import "./variables.css"
+import LineToolbar from "./page/LineToolbar.tsx"
 
 async function saveDocument(currentDoc: DocumentType, user: (User | null)) {
     if (!user) return
@@ -86,6 +87,7 @@ export default function Editor() {
     return (
         <div className="editor">
             <Toolbar />
+            <LineToolbar />
             <div className="pages">
                 <Page />
             </div>

@@ -1,4 +1,4 @@
-import type { Document, DocSettings, Chord, Line, Margins, EditorState, LineGroup, Section } from "./types"
+import type { Document, DocSettings, Chord, Line, Margins, EditorState, LineGroup, Section, ToolbarProperties } from "./types"
 
 export const createLine = (): Line => ({
     id: crypto.randomUUID(),
@@ -49,8 +49,17 @@ export const createDocument = (): Document => ({
     sections: [createSection()]
 })
 
+export const createToolbarProperties = (): ToolbarProperties => ({
+    lineId: null,
+    lineGroupId: null,
+    sectionId: null,
+    lineTop: null,
+    lineLeft: null,
+    lineWidth: null
+})
+
 export const createEditorState = (): EditorState => ({
     draftChord: createChord(),
-    editingId: null,
-    editingMode: null
+    editingMode: null,
+    toolbarProperties: createToolbarProperties()
 })

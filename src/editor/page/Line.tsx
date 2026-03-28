@@ -3,14 +3,12 @@ import {
     useLayoutEffect,
     useState
 } from "react"
-import { Add, Check, DeleteOutline, Edit } from "@mui/icons-material"
 
 import { numberToNote } from "../../lib/music"
 import { useDoc } from "../DocContext.tsx"
 import type { LineGroup as LineGroupType, Line as LineType, Chord as ChordType, Section as SectionType } from "../types.ts"
 
 import "./Line.css"
-import { createLine } from "../factories.ts"
 
 type LineProps = {
     line: LineType,
@@ -25,6 +23,7 @@ export default function Line({
 }: LineProps) {
     const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
 
+    const lineRef = useRef<(HTMLDivElement | null)>(null)
     const letterRefs = useRef<(HTMLSpanElement | null)[]>([])
     const chordLayerRef = useRef<HTMLDivElement | null>(null)
     const editRef = useRef<HTMLDivElement | null>(null)
@@ -37,8 +36,8 @@ export default function Line({
     const lineGroup = section.lineGroups.find(lg => lg.id === lineGroupId)
     if (!lineGroup) throw new Error(`LineGroup ${lineGroupId} not found`)
 
-    const isEditing = editorState.editingId === line.id
-    const isSelectable = editorState.editingMode === null
+    const isEditing = editorState.toolbarProperties.lineId === line.id
+    const isSelectable = (!isEditing) && (editorState.editingMode === null)
 
     useLayoutEffect(() => {
         if (isEditing) return
@@ -62,6 +61,22 @@ export default function Line({
 
         requestAnimationFrame(measure)
     }, [line.text, line.chords, isEditing, currentDoc.docSettings])
+
+    const onLineClick = () => {
+        const rect = lineRef.current?.getBoundingClientRect()
+        setEditorState(prev => ({
+            ...prev,
+            toolbarProperties: {
+                lineId: line.id,
+                lineGroupId: lineGroupId,
+                sectionId: sectionId,
+                lineTop: rect?.top || null,
+                lineLeft: rect?.left || null,
+                lineWidth: rect?.width || null
+            }
+        }))
+        console.log(editorState)
+    }
 
     const setSection = (newSection: SectionType) => {
         setCurrentDoc(prev => ({
@@ -94,53 +109,14 @@ export default function Line({
         })
     }
 
-    const addLine = () => {
-        const newLine = createLine()
-
-        setLineGroup({
-            ...lineGroup,
-            lines: lineGroup.lines.flatMap(l =>
-                l.id === line.id ? [
-                    l, newLine
-                ] : [l]
-            )
-        })
-        setEditorState(prev => ({ ...prev, editingId: newLine.id }))
-    }
-
-    const deleteLine = () => {
-        if (
-            currentDoc.sections.length === 1 &&
-            currentDoc.sections[0]?.lineGroups.length === 1 &&
-            currentDoc.sections[0]?.lineGroups[0]?.lines.length === 1
-        ) return
-
-        setLineGroup({
-            ...lineGroup,
-            lines: lineGroup.lines.filter(l => l.id !== line.id)
-        })
-
-        if (lineGroup.lines.length > 1) return
-
-        setSection({
-            ...section,
-            lineGroups: section.lineGroups.filter(lg => lg.id !== lineGroup.id)
-        })
-
-        if (section.lineGroups.length > 1) return
-
-        setCurrentDoc(prev => ({
-            ...prev,
-            sections: prev.sections.filter(s => s.id !== section.id)
-        }))
-    }
-
-    const onStartEdit = () => {
-        setEditorState(prev => ({ ...prev, editingId: line.id }))
-    }
-
     const onStopEdit = () => {
-        setEditorState(prev => ({ ...prev, editingId: null }))
+        setEditorState(prev => ({
+            ...prev,
+            toolbarProperties: {
+                ...prev.toolbarProperties,
+                lineId: line.id
+            }
+        }))
     }
 
     const finishEditing = () => {
@@ -195,37 +171,11 @@ export default function Line({
             className={
                 `line-wrapper
                 ${isEditing ? 'editing' : ''}
-                ${isSelectable ? 'hoverable' : ''}`
+                ${isSelectable ? 'selectable' : ''}`
             }
+            ref={lineRef}
+            onClick={onLineClick}
         >
-            <div className="line-toolbar-sticky">
-                <div className="line-toolbar">
-                    <button
-                        className="button-add-line"
-                        onClick={addLine}
-                    >
-                        <Add fontSize="small" />
-                    </button>
-                    <button
-                        className="button-delete-line"
-                        onClick={deleteLine}
-                    >
-                        <DeleteOutline fontSize="small" />
-                    </button>
-                    <button
-                        className="button-edit-line"
-                        onClick={() => {
-                            if (isEditing) {
-                                finishEditing()
-                            } else {
-                                onStartEdit()
-                            }
-                        }}
-                    >
-                        {isEditing ? <Check fontSize="small" /> : <Edit fontSize="small" />}
-                    </button>
-                </div>
-            </div>
 
             {isEditing ? (
                 <div
@@ -234,7 +184,6 @@ export default function Line({
                     contentEditable
                     autoFocus
                     suppressContentEditableWarning
-                    onBlur={() => finishEditing()}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             e.preventDefault()
@@ -272,7 +221,7 @@ export default function Line({
                                 {char}
                             </span>
                         )) :
-                            <span className="placeholder">Edit this line to change text</span>
+                            <span className="placeholder">Click this line to change text</span>
                         }
                     </div>
                 </>

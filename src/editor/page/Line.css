@@ -3,40 +3,8 @@
   position: relative;
 }
 
-.line-toolbar-sticky {
-  display: none;
-  position: absolute;
-  width: 0;
-  height: 0;
-  right: 0;
-  z-index: var(--z-toolbar);
-}
-
-.line-container.hoverable .line-wrapper:hover .line-toolbar-sticky,
-.line-wrapper.editing .line-toolbar-sticky {
-  display: block;
-}
-
-.line-toolbar {
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateY(-50%);  /* pulls it half above the line */
-    display: flex;
-    gap: 4px;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    padding: 2px;
-}
-
-.line-toolbar button {
-  height: 28px;
-  width: 28px;
-  padding: 4px;
-  justify-content: center;
-  align-items: center;
+.line-wrapper.selectable {
+  cursor: pointer;
 }
 
 .chord-layer {
