@@ -67,8 +67,14 @@ export type ToolbarProperties = {
     lineWidth: number | null
 }
 
+export type EditingMode =
+    'setSingleColumn' |
+    'setDualColumn' |
+    'addLine' |
+    null
+
 export type EditorState = {
     draftChord: Chord
-    editingMode: string | null
+    editingMode: EditingMode
     toolbarProperties: ToolbarProperties
 }

@@ -11,6 +11,7 @@ import { useDoc } from "../DocContext.tsx"
 
 import "./Toolbar.css"
 import { FormatAlignJustify, PlaylistAdd, Settings, VerticalSplit } from "@mui/icons-material"
+import type { EditingMode as EditingModeType } from "../types.ts"
 
 export default function Toolbar() {
     const { currentDoc, editorState, setEditorState } = useDoc()
@@ -36,7 +37,7 @@ export default function Toolbar() {
         }))
     }
 
-    const setEditingMode = (editingMode: string) => {
+    const setEditingMode = (editingMode: EditingModeType) => {
         setEditorState(prev => ({
             ...prev,
             editingMode: editingMode
