@@ -73,6 +73,12 @@ export type EditingMode =
     'addLine' |
     null
 
+export const EDITING_MODE_LABELS: Record<NonNullable<EditingMode>, string> = {
+    setSingleColumn: 'Set as Single Column',
+    setDualColumn: 'Set as Dual Column',
+    addLine: 'Add a Line',
+}
+
 export type EditorState = {
     draftChord: Chord
     editingMode: EditingMode

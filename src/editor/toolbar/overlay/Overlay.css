@@ -1,0 +1,19 @@
+.toolbar-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #f6f6f6;
+
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 8px;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.toolbar-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}

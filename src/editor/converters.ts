@@ -20,4 +20,3 @@ export function firestoreToDocument(doc: any): DocumentType {
         ...doc
     }
 }
-
