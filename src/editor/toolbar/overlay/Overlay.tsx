@@ -3,6 +3,7 @@ import { useDoc } from "../../DocContext"
 import "./Overlay.css"
 import { Close } from "@mui/icons-material"
 import { EDITING_MODE_LABELS } from "../../types"
+import ChordToolbar from "./ChordToolbar"
 
 export default function Overlay() {
     const { editorState, setEditorState } = useDoc()
@@ -32,6 +33,8 @@ export default function Overlay() {
             >
                 {editingModeName}
             </span>
+
+            {editorState.editingMode === "addChords" && <ChordToolbar />}
         </div>
     )
 }

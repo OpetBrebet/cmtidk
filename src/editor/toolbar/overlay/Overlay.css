@@ -2,7 +2,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: #f6f6f6;
+    background-color: #e0e0e0;
 
     display: flex;
     align-items: center;
@@ -11,6 +11,8 @@
 
     opacity: 0;
     pointer-events: none;
+
+    transition: opacity 0.1s;
 }
 
 .toolbar-overlay.visible {

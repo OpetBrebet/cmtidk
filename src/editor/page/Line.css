@@ -16,7 +16,7 @@
   white-space: nowrap;
   font-weight: bold;
   cursor: pointer;
-/*  transform: translateX(-50%); */
+  /*  transform: translateX(-50%); */
 }
 
 .text-layer {
@@ -29,8 +29,7 @@
   color: #808080
 }
 
-.letter:hover {
+.letter.selectable:hover {
   background-color: #ffff05;
   cursor: pointer;
 }
-

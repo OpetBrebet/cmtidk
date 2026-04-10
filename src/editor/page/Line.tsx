@@ -63,6 +63,8 @@ export default function Line({
     }, [line.text, line.chords, isEditing, currentDoc.docSettings])
 
     const onLineClick = () => {
+        if (editorState.editingMode === 'addChords') return
+
         const rect = lineRef.current?.getBoundingClientRect()
         setEditorState(prev => ({
             ...prev,
@@ -75,7 +77,6 @@ export default function Line({
                 lineWidth: rect?.width || null
             }
         }))
-        console.log(editorState)
     }
 
     const setSection = (newSection: SectionType) => {
@@ -100,7 +101,10 @@ export default function Line({
         })
     }
 
-    const onTextChange = (newText: string) => {
+    const onTextChange = () => {
+        if (!editRef.current) return
+
+        const newText = editRef.current.textContent ?? ""
         setLineGroup({
             ...lineGroup,
             lines: lineGroup.lines.map(l =>
@@ -120,10 +124,7 @@ export default function Line({
     }
 
     const finishEditing = () => {
-        if (!editRef.current) return
-
-        const text = editRef.current.textContent ?? ""
-        onTextChange(text)
+        onTextChange()
         onStopEdit()
     }
 
@@ -141,6 +142,7 @@ export default function Line({
 
     const onChordClick = (chordId: string) => {
         if (isSelectable === null) return
+        if (editorState.editingMode !== 'addChords') return
 
         setLineGroup({
             ...lineGroup,
@@ -154,8 +156,9 @@ export default function Line({
     }
 
     const onCharClick = (charIndex: number) => {
-        if (editorState.draftChord === null) return
         if (isSelectable === null) return
+        if (editorState.draftChord === null) return
+        if (editorState.editingMode !== 'addChords') return
 
         const newChord = {
             ...editorState.draftChord,
@@ -184,6 +187,7 @@ export default function Line({
                     contentEditable
                     autoFocus
                     suppressContentEditableWarning
+                    onBlur={onTextChange}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             e.preventDefault()
@@ -216,7 +220,7 @@ export default function Line({
                                 key={i}
                                 ref={el => { (letterRefs.current[i] = el) }}
                                 onClick={() => onCharClick(i)}
-                                className={`letter ${isSelectable ? 'selectable' : ''}`}
+                                className={`letter ${editorState.editingMode === 'addChords' ? 'selectable' : ''}`}
                             >
                                 {char}
                             </span>

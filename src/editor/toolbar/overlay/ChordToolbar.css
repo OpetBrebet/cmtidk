@@ -1,0 +1,5 @@
+.chord-toolbar {
+    padding: 0 16px;
+    display: flex;
+    gap: 4px;
+}

@@ -18,26 +18,6 @@ export default function Toolbar() {
     const { currentDoc, editorState, setEditorState } = useDoc()
     const [isPSOpen, setIsPSOpen] = useState(false) // PS is Project Settings
 
-    const setChordRoot = (chordRoot: number) => {
-        setEditorState(prev => ({
-            ...prev,
-            draftChord: {
-                ...prev.draftChord,
-                root: chordRoot
-            }
-        }))
-    }
-
-    const setChordType = (chordType: string) => {
-        setEditorState(prev => ({
-            ...prev,
-            draftChord: {
-                ...prev.draftChord,
-                type: chordType
-            }
-        }))
-    }
-
     const setEditingMode = (editingMode: EditingModeType) => {
         setEditorState(prev => ({
             ...prev,
@@ -68,33 +48,12 @@ export default function Toolbar() {
 
                 <hr className="toolbar-divider" />
 
-                <div className="toolbar-chords">
-                    <select
-                        name="chord-root"
-                        id="chord-root"
-                        style={{ width: 48 }}
-                        value={
-                            numberToNote(editorState.draftChord.root + currentDoc.musicRoot)
-                        }
-                        onChange={(e) => {
-                            const value = noteToNumber(e.target.value)
-                            setChordRoot(value - currentDoc.musicRoot)
-                        }}
+                <div className="toolbar-add-chord-mode">
+                    <button
+                        onClick={() => setEditingMode("addChords")}
                     >
-                        {NOTES.map(note => (
-                            <option key={note} value={note}>
-                                {note}
-                            </option>
-                        ))}
-                    </select>
-                    <input
-                        type="text"
-                        value={editorState.draftChord.type}
-                        onChange={(e) => {
-                            setChordType(e.target.value)
-                        }}
-                        placeholder="Chord (e.g. Am, G7)"
-                    />
+                        Add Chords
+                    </button>
                 </div>
 
                 <hr className="toolbar-divider" />

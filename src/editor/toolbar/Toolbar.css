@@ -1,11 +1,11 @@
 .toolbar {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  background-color: #f6f6f6;
-  z-index: var(--z-toolbar);
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #f6f6f6;
+    z-index: var(--z-toolbar);
 
-  display: flex;
+    display: flex;
 }
 
 .toolbar * {
@@ -13,6 +13,7 @@
 }
 
 .toolbar button {
+    height: 100%;
     padding: 0.2em 0.4em;
     background: none;
 }
@@ -40,13 +41,15 @@
 }
 
 .toolbar-contents {
-  padding: 0.5em 0;
-  display: flex;
-  align-items: center;
-  gap: 0.2em;
+    padding: 0.5em 0;
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
 }
 
-.toolbar-contents > div {
+.toolbar-contents>div {
+    height: 100%;
+
     display: flex;
     align-items: center;
     padding: 0 0.5em;
