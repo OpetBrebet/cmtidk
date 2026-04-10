@@ -1,4 +1,4 @@
-import { Add, Check, DeleteOutline } from "@mui/icons-material"
+import { Add, ArrowDownward, ArrowUpward, Check, DeleteOutline } from "@mui/icons-material"
 
 import { useDoc } from "../DocContext"
 import { createLine, createToolbarProperties } from "../factories"
@@ -60,6 +60,24 @@ export default function LineToolbar({ }) {
         setEditorState(prev => ({ ...prev, editingId: newLine.id }))
     }
 
+    const moveLine = (direction: "up" | "down") => {
+        if (!lineGroup || !line) return
+
+        const index = lineGroup.lines.findIndex(l => l.id === line.id)
+        if (index === -1) return
+
+        const targetIndex = direction === 'up' ? index - 1 : index + 1
+        if (targetIndex < 0 || targetIndex >= lineGroup.lines.length) return
+
+        const newArray = [...lineGroup.lines];
+        [newArray[index], newArray[targetIndex]] = [newArray[targetIndex], newArray[index]]
+
+        setLineGroup({
+            ...lineGroup,
+            lines: newArray
+        })
+    }
+
     const deleteLine = () => {
         if (!lineGroup || !section || !line) return
 
@@ -113,6 +131,18 @@ export default function LineToolbar({ }) {
                     onClick={addLine}
                 >
                     <Add fontSize="small" />
+                </button>
+                <button
+                    className="button-move-line-up"
+                    onClick={() => moveLine("up")}
+                >
+                    <ArrowUpward fontSize="small" />
+                </button>
+                <button
+                    className="button-move-line-down"
+                    onClick={() => moveLine("down")}
+                >
+                    <ArrowDownward fontSize="small" />
                 </button>
                 <button
                     className="button-delete-line"
