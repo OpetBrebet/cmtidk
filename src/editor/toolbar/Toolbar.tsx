@@ -2,11 +2,6 @@ import { createPortal } from "react-dom"
 import { useState } from "react"
 import { FormatAlignJustify, PlaylistAdd, Settings, VerticalSplit } from "@mui/icons-material"
 
-import {
-    NOTES,
-    numberToNote,
-    noteToNumber
-} from "../../lib/music.ts"
 import ProjectSettings from "./ProjectSettings.tsx"
 import { useDoc } from "../DocContext.tsx"
 import Overlay from "./overlay/Overlay.tsx"
@@ -15,7 +10,7 @@ import type { EditingMode as EditingModeType } from "../types.ts"
 import "./Toolbar.css"
 
 export default function Toolbar() {
-    const { currentDoc, editorState, setEditorState } = useDoc()
+    const { setEditorState } = useDoc()
     const [isPSOpen, setIsPSOpen] = useState(false) // PS is Project Settings
 
     const setEditingMode = (editingMode: EditingModeType) => {
