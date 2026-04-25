@@ -1,53 +1,54 @@
-import { Link, Routes, Route } from "react-router-dom"
-import { signInWithPopup, signInWithRedirect, GoogleAuthProvider } from "firebase/auth"
-
-import Editor from "./editor/Editor.tsx"
-import { auth } from "./lib/firebase.ts"
-import { useAuth } from "./auth/AuthContext.tsx"
-import "./App.css"
-import Home from "./home/Home.tsx"
+import { Link, Navigate, Routes, Route, Outlet } from "react-router-dom"
+import { useAuth } from "./hooks/useAuth"
+import AuthPage from "./auth/AuthPage"
+import Home from "./home/Home"
+import Editor from "./editor/Editor"
 import { DocProvider } from "./editor/DocContext.tsx"
 
-async function signInWithGoogle() {
-  try {
-    const result = await signInWithPopup(auth, new GoogleAuthProvider())
-    return result.user
-  } catch (error: any) {
-    if (error.code === "auth/popup-blocked") {
-      await signInWithRedirect(auth, new GoogleAuthProvider())
-    } else {
-      throw error
-    }
-  }
+import "./App.css"
+import { ModalProvider } from "./context/ModalContext.tsx"
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+    const { isSignedIn, isLoaded } = useAuth()
+    if (!isLoaded) return null
+    if (!isSignedIn) return <Navigate to="/login" />
+    return <>{children}</>
+}
+
+function EditorLayout() {
+    return (
+        <ProtectedRoute>
+            <DocProvider>
+                <ModalProvider>
+                    <Outlet />
+                </ModalProvider>
+            </DocProvider>
+        </ProtectedRoute>
+    )
 }
 
 function App() {
-  const { user, logout } = useAuth()
-
-  return (
-    <>
-      <ul className="navbar">
-        <li style={{ float: "left" }}><Link className="navbar-link" to="/">Home</Link></li>
-        <li style={{ float: "left" }}><Link className="navbar-link" to="/editor">Editor</Link></li>
-        <li style={{ float: "right" }}><button className="navbar-login" onClick={user ? logout : signInWithGoogle}>
-          {user ? "Logout" : "Login"}
-        </button></li>
-      </ul>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/editor" element={
-          <DocProvider>
-            <Editor />
-          </DocProvider>
-        } />
-        <Route path="/editor/:id" element={
-          <DocProvider>
-            <Editor />
-          </DocProvider>
-        } />
-      </Routes>
-    </>
-  )
+    return (
+        <>
+            <ul className="navbar">
+                <li style={{ float: "left" }}><Link className="navbar-link" to="/">Home</Link></li>
+                <li style={{ float: "left" }}><Link className="navbar-link" to="/editor">Editor</Link></li>
+            </ul>
+            <Routes>
+                <Route path="/login" element={<AuthPage />} />
+                <Route path="/" element={
+                    <ProtectedRoute>
+                        <Home />
+                    </ProtectedRoute>
+                } />
+                <Route element={<EditorLayout />}>
+                    <Route path="/editor/create" element={<Editor />} />
+                    <Route path="/editor/:id" element={<Editor />} />
+                </Route>
+            </Routes >
+        </>
+    )
 }
 
 export default App
+

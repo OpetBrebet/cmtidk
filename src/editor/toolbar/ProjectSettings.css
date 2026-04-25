@@ -1,25 +1,3 @@
-.ps-modal-overlay {
-    position: fixed;
-    z-index: var(--z-modal);
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ps-modal-box {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    min-width: 20vw;
-    max-width: 480px;
-}
-
 .ps-modal-header {
     display: flex;
     align-items: center;
@@ -41,11 +19,6 @@
     transition: border-color 0.1s, background-color 0.1s, color 0.1s;
 }
 
-.ps-modal-close:hover {
-    border-color: red;
-    color: red;
-}
-
 .ps-modal-divider {
     margin-top: 16px;
     margin-bottom: 16px;
@@ -56,7 +29,7 @@
     padding-bottom: 8px;
 }
 
-.ps-modal-items div > * {
+.ps-modal-items div>* {
     padding-top: 8px;
     padding-bottom: 8px;
 }

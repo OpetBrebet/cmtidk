@@ -39,7 +39,6 @@ export const createDocSettings = (): DocSettings => ({
 
 export const createDocument = (): Document => ({
     id: "",
-    createdAt: Date.now(),
     docSettings: createDocSettings(),
 
     title: "",

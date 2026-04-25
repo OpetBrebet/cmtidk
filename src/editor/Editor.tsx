@@ -1,60 +1,41 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore"
-import type { User } from "firebase/auth"
 
 import { useDoc } from "./DocContext"
-import { useAuth } from "../auth/AuthContext.tsx"
-import { db } from "../lib/firebase.ts"
-import { documentToFirestore, firestoreToDocument } from "./converters.ts"
-import Toolbar from "./toolbar/Toolbar.tsx"
+import { useAuth } from "../hooks/useAuth.ts"
+import { useApi } from "../lib/api.ts"
+import { createDocument } from "./factories.ts"
 import Page from "./page/Page.tsx"
-import type { Document as DocumentType } from "./types.ts"
+import LineToolbar from "./page/LineToolbar.tsx"
+import Toolbar from "./toolbar/Toolbar.tsx"
 
 import "./Editor.css"
 import "./variables.css"
-import LineToolbar from "./page/LineToolbar.tsx"
-
-async function saveDocument(currentDoc: DocumentType, user: (User | null)) {
-    if (!user) return
-
-    const firestoreDocument = documentToFirestore(currentDoc)
-
-    await setDoc(
-        doc(db, "users", user.uid, "songs", currentDoc.id),
-        {
-            ...firestoreDocument,
-            updatedAt: serverTimestamp()
-        }
-    )
-}
 
 export default function Editor() {
     const { id } = useParams()
-    const navigate = useNavigate()
-
+    const { user } = useAuth()
+    const { getDocument, newDocument, updateDocument } = useApi()
     const { currentDoc, setCurrentDoc } = useDoc()
 
-    const { user } = useAuth()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if (!id) {
-            const newId = crypto.randomUUID()
-            navigate(`/editor/${newId}`, { replace: true })
-            return
+        if (id) return
+        const create = async () => {
+            const res = await newDocument(createDocument())
+            navigate(`/editor/${res.id}`, { replace: true })
         }
+        create()
+    }, [id])
+
+    useEffect(() => {
+        if (!id) return
 
         setCurrentDoc(prev => ({ ...prev, id: id }))
-
-        if (!user?.uid) return
-
         const loadDocument = async () => {
-            const docRef = doc(db, "users", user.uid, "songs", id);
-            const snapshot = await getDoc(docRef);
-
-            if (!snapshot.exists()) return
-            const newDocument = firestoreToDocument(snapshot.data())
-            setCurrentDoc(prev => ({ ...prev, ...newDocument, id }))
+            const snapshot = await getDocument(id);
+            setCurrentDoc(prev => ({ ...prev, ...snapshot, id }))
         }
 
         loadDocument()
@@ -75,9 +56,11 @@ export default function Editor() {
 
     useEffect(() => {
         const interval = setInterval(() => {
+            if (!id) return
             if (!isDirty) return
 
-            saveDocument(documentRef.current, user)
+            updateDocument(id, currentDoc)
+
             setIsDirty(false)
         }, 5000)
 
