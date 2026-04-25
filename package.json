@@ -4,17 +4,26 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite & wrangler dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "wrangler deploy --minify",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply cmtidk-db --local",
+    "db:migrate:prod": "wrangler d1 migrations apply cmtidk-db --remote",
+    "db:studio": "drizzle-kit studio",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.9",
+    "arctic": "^3.7.0",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.12.15",
+    "nanoid": "^5.1.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.1"
@@ -29,7 +38,6 @@
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
-    "gh-pages": "^6.3.0",
     "globals": "^16.5.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",

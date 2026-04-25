@@ -24,7 +24,7 @@
 			"binding": "DB",
 			"database_name": "cmtidk-db",
 			"database_id": "74c40da6-5c88-463a-bd89-8f803bb7ab33",
-			"migrations_dir": "./drizzle/"
+			"migrations_dir": "./worker/drizzle/"
 		}
 	],
 	/**
