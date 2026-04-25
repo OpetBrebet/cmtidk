@@ -14,6 +14,7 @@ import { handleGoogleLogin, handleGoogleCallback } from "./auth/google"
 
 type Env = {
     DB: D1Database
+    ASSETS: Fetcher
     GOOGLE_CLIENT_ID: string
     GOOGLE_CLIENT_SECRET: string
     GOOGLE_REDIRECT_URI: string
