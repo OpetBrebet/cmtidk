@@ -37,7 +37,6 @@ export type DocSettings = {
 
 export type Document = {
     id: string
-    createdAt: number
     docSettings: DocSettings
 
     title: string

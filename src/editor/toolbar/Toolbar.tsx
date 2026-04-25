@@ -1,22 +1,15 @@
-import { createPortal } from "react-dom"
-import { useState } from "react"
 import { FormatAlignJustify, PlaylistAdd, Settings, VerticalSplit } from "@mui/icons-material"
-
-import {
-    NOTES,
-    numberToNote,
-    noteToNumber
-} from "../../lib/music.ts"
-import ProjectSettings from "./ProjectSettings.tsx"
 import { useDoc } from "../DocContext.tsx"
+import { useModal } from "../../context/ModalContext.tsx"
+import ProjectSettings from "./ProjectSettings.tsx"
 import Overlay from "./overlay/Overlay.tsx"
 import type { EditingMode as EditingModeType } from "../types.ts"
 
 import "./Toolbar.css"
 
 export default function Toolbar() {
-    const { currentDoc, editorState, setEditorState } = useDoc()
-    const [isPSOpen, setIsPSOpen] = useState(false) // PS is Project Settings
+    const { setEditorState } = useDoc()
+    const { openModal } = useModal()
 
     const setEditingMode = (editingMode: EditingModeType) => {
         setEditorState(prev => ({
@@ -25,25 +18,23 @@ export default function Toolbar() {
         }))
     }
 
+    const onPSClick = () => {
+        openModal({
+            title: "Project Settings",
+            content: <ProjectSettings />
+        })
+    }
+
     return (
         <div className="toolbar">
             <div className="toolbar-contents">
                 <div className="toolbar-project-settings">
-                    <button
-                        className="toolbar-settings-button"
-                        onClick={() => setIsPSOpen(true)}
-                    >
+                    <button className="toolbar-settings-button" onClick={onPSClick}>
                         <div>
                             <Settings />
                         </div>
                         Project Settings
                     </button>
-
-                    {isPSOpen && createPortal(
-                        <ProjectSettings
-                            setIsPSOpen={setIsPSOpen}
-                        />, document.body
-                    )}
                 </div>
 
                 <hr className="toolbar-divider" />

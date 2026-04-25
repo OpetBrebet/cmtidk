@@ -14,7 +14,6 @@ export default function LineToolbar({ }) {
     const sectionId = editorState.toolbarProperties.sectionId
     const lineTop = editorState.toolbarProperties.lineTop
     const lineLeft = editorState.toolbarProperties.lineLeft
-    const lineWidth = editorState.toolbarProperties.lineWidth
 
     const section = currentDoc.sections.find(s => s.id === sectionId)
     const lineGroup = section?.lineGroups.find(lg => lg.id === lineGroupId)
@@ -122,7 +121,6 @@ export default function LineToolbar({ }) {
             style={{
                 top: `${lineTop}px`,
                 left: `${lineLeft}px`,
-                width: `${lineWidth}px`
             }}
         >
             <div className="line-toolbar-wrapper">
