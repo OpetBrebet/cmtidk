@@ -47,7 +47,7 @@
 	 */
 	"vars": {
 	    "GOOGLE_CLIENT_ID": "235913410113-3h1monekc3ct7kendmgv6v36p281o1ag.apps.googleusercontent.com",
-		"GOOGLE_REDIRECT_URI": "https://cmtidk.opetbrebet.workers.dev/api/auth/google/callback"
+		"GOOGLE_REDIRECT_URI": "https://cmtidk.rainerkenan.com/api/auth/google/callback"
 	}
 	/**
 	 * Service Bindings (communicate between multiple Workers)
