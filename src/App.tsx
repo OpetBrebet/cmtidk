@@ -38,7 +38,9 @@ function App() {
                 <Route path="/login" element={<AuthPage />} />
                 <Route path="/" element={
                     <ProtectedRoute>
-                        <Home />
+                        <ModalProvider>
+                            <Home />
+                        </ModalProvider>
                     </ProtectedRoute>
                 } />
                 <Route element={<EditorLayout />}>
