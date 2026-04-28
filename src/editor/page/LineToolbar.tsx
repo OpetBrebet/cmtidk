@@ -1,31 +1,28 @@
 import { Add, ArrowDownward, ArrowUpward, Check, DeleteOutline } from "@mui/icons-material"
 
 import { useDoc } from "../DocContext"
-import { createLine, createToolbarProperties } from "../factories"
-import type { LineGroup as LineGroupType, Section as SectionType } from "../types"
+import { createLine } from "../factories"
+import type { Line as LineType, LineGroup as LineGroupType, Section as SectionType } from "../types"
 
 import "./LineToolbar.css"
 
-export default function LineToolbar({ }) {
+type LineToolbarProps = {
+    line: LineType
+    lineGroup: LineGroupType
+    section: SectionType
+
+}
+
+export default function LineToolbar({ line, lineGroup, section }: LineToolbarProps) {
     const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
 
-    const lineId = editorState.toolbarProperties.lineId
-    const lineGroupId = editorState.toolbarProperties.lineGroupId
-    const sectionId = editorState.toolbarProperties.sectionId
-    const lineTop = editorState.toolbarProperties.lineTop
-    const lineLeft = editorState.toolbarProperties.lineLeft
-
-    const section = currentDoc.sections.find(s => s.id === sectionId)
-    const lineGroup = section?.lineGroups.find(lg => lg.id === lineGroupId)
-    const line = lineGroup?.lines.find(l => l.id === lineId)
-
-    const isVisible = (lineId !== null) && (editorState.editingMode === null)
+    const isVisible = (editorState.editingMode === null) && (editorState.editingLineId === line.id)
 
     const setSection = (newSection: SectionType) => {
         setCurrentDoc(prev => ({
             ...prev,
             sections: currentDoc.sections.map(s =>
-                s.id === sectionId ? {
+                s.id === section.id ? {
                     ...newSection
                 } : s
             )
@@ -37,7 +34,7 @@ export default function LineToolbar({ }) {
         setSection({
             ...section,
             lineGroups: section.lineGroups.map(lg =>
-                lg.id === lineGroupId ? {
+                lg.id === lineGroup.id ? {
                     ...newLineGroup
                 } : lg
             )
@@ -111,52 +108,44 @@ export default function LineToolbar({ }) {
 
         setEditorState(prev => ({
             ...prev,
-            toolbarProperties: createToolbarProperties()
+            editingLineId: null
         }))
     }
 
     return (
-        <div
-            className={`line-toolbar-container ${isVisible ? 'visible' : ''}`}
-            style={{
-                top: `${lineTop}px`,
-                left: `${lineLeft}px`,
-            }}
-        >
-            <div className="line-toolbar-wrapper">
-                <button
-                    className="button-add-line"
-                    onClick={addLine}
-                >
-                    <Add fontSize="small" />
-                </button>
-                <button
-                    className="button-move-line-up"
-                    onClick={() => moveLine("up")}
-                >
-                    <ArrowUpward fontSize="small" />
-                </button>
-                <button
-                    className="button-move-line-down"
-                    onClick={() => moveLine("down")}
-                >
-                    <ArrowDownward fontSize="small" />
-                </button>
-                <button
-                    className="button-delete-line"
-                    onClick={deleteLine}
-                >
-                    <DeleteOutline fontSize="small" />
-                </button>
-                <button
-                    className="button-edit-line"
-                    onClick={() => {
-                        onStopEdit()
-                    }}
-                >
-                    <Check fontSize="small" />
-                </button>
-            </div>
+        <div className={`line-toolbar-wrapper ${isVisible && 'visible'}`}>
+            <button
+                className="button-add-line"
+                onClick={addLine}
+            >
+                <Add fontSize="small" />
+            </button>
+            <button
+                className="button-move-line-up"
+                onClick={() => moveLine("up")}
+            >
+                <ArrowUpward fontSize="small" />
+            </button>
+            <button
+                className="button-move-line-down"
+                onClick={() => moveLine("down")}
+            >
+                <ArrowDownward fontSize="small" />
+            </button>
+            <button
+                className="button-delete-line"
+                onClick={deleteLine}
+            >
+                <DeleteOutline fontSize="small" />
+            </button>
+            <button
+                className="button-edit-line"
+                onClick={() => {
+                    onStopEdit()
+                }}
+            >
+                <Check fontSize="small" />
+            </button>
         </div>
     )
 }

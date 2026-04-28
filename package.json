@@ -13,6 +13,7 @@
     "db:migrate": "wrangler d1 migrations apply cmtidk-db --local",
     "db:migrate:prod": "wrangler d1 migrations apply cmtidk-db --remote",
     "db:studio": "drizzle-kit studio --config=worker/drizzle.config.ts",
+    "db:studio:prod": "NODE_ENV=production drizzle-kit studio --config=worker/drizzle.config.ts",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.9",
     "arctic": "^3.7.0",
+    "better-sqlite3": "^12.9.0",
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.15",
     "nanoid": "^5.1.9",

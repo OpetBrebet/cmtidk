@@ -148,7 +148,7 @@ export default function Section({ section }: SectionProps) {
                     <LineGroup
                         key={lineGroup.id}
                         lineGroup={lineGroup}
-                        sectionId={section.id}
+                        section={section}
                     />
                     {(section.lineGroups.length > 1 && i === 0) && (
                         <div

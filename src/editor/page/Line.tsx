@@ -3,7 +3,6 @@ import {
     useLayoutEffect,
     useState
 } from "react"
-
 import { numberToNote } from "../../lib/music"
 import { useDoc } from "../DocContext.tsx"
 import type { LineGroup as LineGroupType, Line as LineType, Chord as ChordType, Section as SectionType } from "../types.ts"
@@ -12,15 +11,11 @@ import "./Line.css"
 
 type LineProps = {
     line: LineType,
-    lineGroupId: string,
-    sectionId: string
+    lineGroup: LineGroupType,
+    section: SectionType
 }
 
-export default function Line({
-    line,
-    lineGroupId,
-    sectionId
-}: LineProps) {
+export default function Line({ line, lineGroup, section }: LineProps) {
     const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
 
     const lineRef = useRef<(HTMLDivElement | null)>(null)
@@ -30,13 +25,7 @@ export default function Line({
 
     const [positions, setPositions] = useState<Record<string, number>>({})
 
-    const section = currentDoc.sections.find(s => s.id === sectionId)
-    if (!section) throw new Error(`Section ${sectionId} not found`)
-
-    const lineGroup = section.lineGroups.find(lg => lg.id === lineGroupId)
-    if (!lineGroup) throw new Error(`LineGroup ${lineGroupId} not found`)
-
-    const isEditing = editorState.toolbarProperties.lineId === line.id
+    const isEditing = editorState.editingLineId === line.id
     const isSelectable = (!isEditing) && (editorState.editingMode === null)
 
     useLayoutEffect(() => {
@@ -65,17 +54,9 @@ export default function Line({
     const onLineClick = () => {
         if (editorState.editingMode === 'addChords') return
 
-        const rect = lineRef.current?.getBoundingClientRect()
         setEditorState(prev => ({
             ...prev,
-            toolbarProperties: {
-                lineId: line.id,
-                lineGroupId: lineGroupId,
-                sectionId: sectionId,
-                lineTop: rect?.top || null,
-                lineLeft: rect?.left || null,
-                lineWidth: rect?.width || null
-            }
+            editingLineId: line.id
         }))
     }
 
@@ -83,7 +64,7 @@ export default function Line({
         setCurrentDoc(prev => ({
             ...prev,
             sections: currentDoc.sections.map(s =>
-                s.id === sectionId ? {
+                s.id === section.id ? {
                     ...newSection
                 } : s
             )
@@ -94,7 +75,7 @@ export default function Line({
         setSection({
             ...section,
             lineGroups: section.lineGroups.map(lg =>
-                lg.id === lineGroupId ? {
+                lg.id === lineGroup.id ? {
                     ...newLineGroup
                 } : lg
             )
@@ -116,10 +97,7 @@ export default function Line({
     const onStopEdit = () => {
         setEditorState(prev => ({
             ...prev,
-            toolbarProperties: {
-                ...prev.toolbarProperties,
-                lineId: line.id
-            }
+            editingLineId: null
         }))
     }
 
@@ -179,7 +157,6 @@ export default function Line({
             ref={lineRef}
             onClick={onLineClick}
         >
-
             {isEditing ? (
                 <div
                     ref={editRef}

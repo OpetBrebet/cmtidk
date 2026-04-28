@@ -1,15 +1,16 @@
-import Line from "./Line"
-import type { LineGroup as LineGroupType } from "../types"
 import { useDoc } from '../DocContext'
+import Line from "./Line"
+import LineToolbar from "./LineToolbar"
+import type { LineGroup as LineGroupType, Section as SectionType } from "../types"
 
 import "./LineGroup.css"
 
 type LineGroupProps = {
     lineGroup: LineGroupType
-    sectionId: string
+    section: SectionType
 }
 
-export default function LineGroup({ lineGroup, sectionId }: LineGroupProps) {
+export default function LineGroup({ lineGroup, section }: LineGroupProps) {
     const { editorState } = useDoc()
 
     const isHoverable = editorState.editingMode === null
@@ -21,11 +22,23 @@ export default function LineGroup({ lineGroup, sectionId }: LineGroupProps) {
                     key={line.id}
                     className={`line-container ${isHoverable ? 'hoverable' : ''}`}
                 >
+                    <div
+                        className={`line-toolbar-container`}
+                        style={{
+                            position: 'absolute'
+                        }}
+                    >
+                        <LineToolbar
+                            line={line}
+                            lineGroup={lineGroup}
+                            section={section}
+                        />
+                    </div>
                     <Line
                         key={line.id}
                         line={line}
-                        lineGroupId={lineGroup.id}
-                        sectionId={sectionId}
+                        lineGroup={lineGroup}
+                        section={section}
                     />
                 </div>
             ))}

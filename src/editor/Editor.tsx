@@ -6,7 +6,6 @@ import { useAuth } from "../hooks/useAuth.ts"
 import { useApi } from "../lib/api.ts"
 import { createDocument } from "./factories.ts"
 import Page from "./page/Page.tsx"
-import LineToolbar from "./page/LineToolbar.tsx"
 import Toolbar from "./toolbar/Toolbar.tsx"
 
 import "./Editor.css"
@@ -70,7 +69,6 @@ export default function Editor() {
     return (
         <div className="editor">
             <Toolbar />
-            <LineToolbar />
             <div className="pages">
                 <Page />
             </div>

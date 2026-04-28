@@ -57,15 +57,6 @@ export type FirestoreDocument = {
     sections: Section[]
 }
 
-export type ToolbarProperties = {
-    lineId: string | null
-    lineGroupId: string | null
-    sectionId: string | null
-    lineTop: number | null
-    lineLeft: number | null
-    lineWidth: number | null
-}
-
 export type EditingMode =
     'setSingleColumn' |
     'setDualColumn' |
@@ -83,5 +74,5 @@ export const EDITING_MODE_LABELS: Record<NonNullable<EditingMode>, string> = {
 export type EditorState = {
     draftChord: Chord
     editingMode: EditingMode
-    toolbarProperties: ToolbarProperties
+    editingLineId: string | null
 }
