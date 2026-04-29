@@ -21,7 +21,7 @@ export default function Line({ line, lineGroup, section }: LineProps) {
     const lineRef = useRef<(HTMLDivElement | null)>(null)
     const letterRefs = useRef<(HTMLSpanElement | null)[]>([])
     const chordLayerRef = useRef<HTMLDivElement | null>(null)
-    const editRef = useRef<HTMLDivElement | null>(null)
+    const editRef = useRef<HTMLInputElement | null>(null)
 
     const [positions, setPositions] = useState<Record<string, number>>({})
 
@@ -85,7 +85,7 @@ export default function Line({ line, lineGroup, section }: LineProps) {
     const onTextChange = () => {
         if (!editRef.current) return
 
-        const newText = editRef.current.textContent ?? ""
+        const newText = editRef.current.value ?? ""
         setLineGroup({
             ...lineGroup,
             lines: lineGroup.lines.map(l =>
@@ -158,12 +158,12 @@ export default function Line({ line, lineGroup, section }: LineProps) {
             onClick={onLineClick}
         >
             {isEditing ? (
-                <div
+                <input
                     ref={editRef}
-                    className="text-layer"
+                    className="text-input"
                     contentEditable
                     autoFocus
-                    suppressContentEditableWarning
+                    defaultValue={line.text}
                     onBlur={onTextChange}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
@@ -174,9 +174,7 @@ export default function Line({ line, lineGroup, section }: LineProps) {
                             onStopEdit()
                         }
                     }}
-                >
-                    {line.text}
-                </div>
+                />
             ) : (
                 <>
                     <div className="chord-layer" ref={chordLayerRef} style={{ height: `${line.chords.length !== 0 ? '1em' : ''}` }}>

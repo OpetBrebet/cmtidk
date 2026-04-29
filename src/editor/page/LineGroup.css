@@ -5,7 +5,7 @@
 .line-container {
   position: relative;
   display: flex;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .line-container.hoverable:hover {
@@ -15,4 +15,3 @@
 .line-container.selected {
   border-radius: 6px;
 }
-
