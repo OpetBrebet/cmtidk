@@ -177,7 +177,7 @@ export default function Line({ line, lineGroup, section }: LineProps) {
                 />
             ) : (
                 <>
-                    <div className="chord-layer" ref={chordLayerRef} style={{ height: `${line.chords.length !== 0 ? '1em' : ''}` }}>
+                    <div className="chord-layer" ref={chordLayerRef} style={{ height: `${line.chords.length !== 0 ? '1lh' : ''}` }}>
                         {line.chords.map(chord =>
                             <span
                                 key={chord.id}

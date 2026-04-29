@@ -44,6 +44,16 @@ export default function ProjectSettings() {
         }))
     }
 
+    const setLineHeight = (lineHeight: number) => {
+        setCurrentDoc(prev => ({
+            ...prev,
+            docSettings: {
+                ...prev.docSettings,
+                lineHeight: lineHeight
+            }
+        }))
+    }
+
     const setMargin = (side: 'top' | 'right' | 'bottom' | 'left', margin: number) => {
         setCurrentDoc(prev => ({
             ...prev,
@@ -103,9 +113,20 @@ export default function ProjectSettings() {
                 <span>Font Size</span>
                 <input
                     type="number"
+                    step="0.05"
                     value={currentDoc.docSettings.fontSize}
                     onChange={(e) => {
                         setFontSize(Number(e.target.value))
+                    }}
+                />
+            </div>
+            <div className="line-height">
+                <span>Line Height</span>
+                <input
+                    type="number"
+                    value={currentDoc.docSettings.lineHeight}
+                    onChange={(e) => {
+                        setLineHeight(Number(e.target.value))
                     }}
                 />
             </div>

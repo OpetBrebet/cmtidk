@@ -34,6 +34,7 @@ export const createMargins = (): Margins => ({
 export const createDocSettings = (): DocSettings => ({
     fontSize: 11,
     padding: 4,
+    lineHeight: 1.25,
     margins: createMargins()
 })
 

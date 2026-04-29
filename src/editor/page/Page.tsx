@@ -114,7 +114,8 @@ export default function Page() {
             paddingTop: `${currentDoc.docSettings.margins.top}mm`,
             paddingRight: `${currentDoc.docSettings.margins.right}mm`,
             paddingBottom: `${currentDoc.docSettings.margins.bottom}mm`,
-            paddingLeft: `${currentDoc.docSettings.margins.left}mm`
+            paddingLeft: `${currentDoc.docSettings.margins.left}mm`,
+            lineHeight: `${currentDoc.docSettings.lineHeight}`
         }}>
             <AddLine />
             {currentDoc.sections.map(section => (

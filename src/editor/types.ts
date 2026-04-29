@@ -32,6 +32,7 @@ export type Margins = {
 export type DocSettings = {
     fontSize: number
     padding: number
+    lineHeight: number
     margins: Margins
 }
 

@@ -42,6 +42,17 @@
     padding: 8px;
     width: 100%;
     font-size: 1rem;
+    background: white;
+    border: 1px solid #6f6f6f;
+    border-radius: 4px;
+}
+
+.ps-modal-items div :is(input):focus {
+    border: 1px solid transparent;
+}
+
+.ps-modal-items div :is(select):focus {
+    border: 1px solid #3585e4;
 }
 
 .ps-modal-items .margin-inputs {
@@ -58,5 +69,6 @@
 }
 
 .margin-inputs div span {
-    color: #bcb6ae
+    font-size: 0.9em;
+    color: #4f4f4f;
 }
