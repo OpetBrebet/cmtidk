@@ -22,7 +22,11 @@ export default function Editor() {
     useEffect(() => {
         if (id) return
         const create = async () => {
-            const res = await newDocument(createDocument())
+            const res = await newDocument({
+                ...createDocument(),
+                title: "New Document",
+                artist: "Me"
+            })
             navigate(`/editor/${res.id}`, { replace: true })
         }
         create()

@@ -90,8 +90,8 @@ app.post("/api/documents", async (c) => {
     const doc = {
         id: nanoid(),
         ownerId: auth.id,
-        title: body.title ?? "Untitled",
-        artist: body.artist ?? "",
+        title: body.title ?? "New Document",
+        artist: body.artist ?? "Me",
         musicRoot: body.musicRoot ?? 0,
         docSettings: JSON.stringify(body.docSettings),
         sections: JSON.stringify(body.sections ?? [])
