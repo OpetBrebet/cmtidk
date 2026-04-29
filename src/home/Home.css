@@ -1,3 +1,99 @@
-.documentItem {
-    
+.document-list-body {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    gap: 16px;
+}
+
+.list-top-bar {
+    width: 80vw;
+    margin: auto;
+}
+
+.document-create {
+    float: right;
+    background-color: #1fa5ff;
+    color: white;
+
+    padding: 8px;
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    transition: background-color 0.1s, color 0.1s;
+}
+
+.document-create:hover {
+    background-color: #1881c7;
+}
+
+.document-list {
+    width: 80vw;
+    margin: 0px auto;
+    padding: 0px;
+    border: 1px solid #a0a0a0;
+    border-radius: 16px;
+    list-style: none;
+    overflow: hidden;
+}
+
+.document-list-title {
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+
+    border-bottom: 1px solid #a0a0a0;
+}
+
+.document-list-title-name {
+    margin: 8px 16px;
+}
+
+.document-item {
+    width: 100%;
+    padding: 8px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.document-item:not(:last-child) {
+    border-bottom: 1px solid #a0a0a0;
+}
+
+.document-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.document-item-name {
+    width: 45%;
+    margin: 0 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.document-item-title {
+    font-weight: 500;
+}
+
+.document-item-artist {
+    font-size: 0.9em;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.document-delete-button {
+    height: 100%;
+    margin-left: auto;
+    padding: 0.2em 0.4em;
+    background: none;
+}
+
+.document-delete-button:hover {
+    background-color: #e0e0e0;
 }
