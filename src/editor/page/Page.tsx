@@ -1,10 +1,20 @@
-import Section from "./Section.tsx"
+import { createPortal } from "react-dom"
+import { createLine, createSection } from "../factories.ts"
 import { useDoc } from "../DocContext.tsx"
+import Section from "./Section.tsx"
+import type { Section as SectionType } from "../types.ts"
 
 import "./Page.css"
-import type { Section as SectionType } from "../types.ts"
-import { createLine, createSection } from "../factories.ts"
-import { createPortal } from "react-dom"
+
+function Title() {
+    const { currentDoc } = useDoc()
+
+    return (
+        <div className="title">
+            {currentDoc.title}
+        </div>
+    )
+}
 
 type AddLineProps = {
     section?: SectionType
@@ -117,6 +127,7 @@ export default function Page() {
             paddingLeft: `${currentDoc.docSettings.margins.left}mm`,
             lineHeight: `${currentDoc.docSettings.lineHeight}`
         }}>
+            <Title />
             <AddLine />
             {currentDoc.sections.map(section => (
                 <div

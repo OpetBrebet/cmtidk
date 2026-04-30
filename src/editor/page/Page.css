@@ -1,9 +1,18 @@
 .page {
-  width: 210mm;
-  height: 297mm;
-  outline: 1px solid #c7c7c7;
-  margin: auto;
-  break-after: page;
+    width: 210mm;
+    height: 297mm;
+    outline: 1px solid #c7c7c7;
+    margin: auto;
+    break-after: page;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    font-weight: 500;
 }
 
 .section-add-line-pos {
