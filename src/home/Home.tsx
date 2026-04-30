@@ -41,8 +41,8 @@ export default function Home() {
                     className="document-create"
                     onClick={() => navigate('/editor/create')}
                 >
-                    <Add />
                     New Document
+                    <Add />
                 </button>
             </div>
             <ul className="document-list">
