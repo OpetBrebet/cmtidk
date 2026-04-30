@@ -113,7 +113,6 @@ export default function ProjectSettings() {
                 <span>Font Size</span>
                 <input
                     type="number"
-                    step="0.05"
                     value={currentDoc.docSettings.fontSize}
                     onChange={(e) => {
                         setFontSize(Number(e.target.value))
@@ -124,6 +123,7 @@ export default function ProjectSettings() {
                 <span>Line Height</span>
                 <input
                     type="number"
+                    step="0.05"
                     value={currentDoc.docSettings.lineHeight}
                     onChange={(e) => {
                         setLineHeight(Number(e.target.value))
