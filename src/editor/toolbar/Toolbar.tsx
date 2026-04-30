@@ -1,8 +1,9 @@
 import { FormatAlignJustify, PlaylistAdd, Settings, VerticalSplit } from "@mui/icons-material"
 import { useDoc } from "../DocContext.tsx"
 import { useModal } from "../../context/ModalContext.tsx"
-import ProjectSettings from "./ProjectSettings.tsx"
 import Overlay from "./overlay/Overlay.tsx"
+import ProjectSettings from "./ProjectSettings.tsx"
+import ImportText from "./ImportText.tsx"
 import type { EditingMode as EditingModeType } from "../types.ts"
 
 import "./Toolbar.css"
@@ -22,6 +23,13 @@ export default function Toolbar() {
         openModal({
             title: "Project Settings",
             content: <ProjectSettings />
+        })
+    }
+
+    const onITClick = () => {
+        openModal({
+            title: "Import Text",
+            content: <ImportText />
         })
     }
 
@@ -69,6 +77,16 @@ export default function Toolbar() {
                         onClick={() => setEditingMode("addLine")}
                     >
                         <PlaylistAdd fontSize="medium" />
+                    </button>
+                </div>
+
+                <hr className="toolbar-divider" />
+
+                <div className="toolbar-import-text">
+                    <button
+                        onClick={() => onITClick()}
+                    >
+                        Import Text
                     </button>
                 </div>
             </div>
