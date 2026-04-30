@@ -16,23 +16,25 @@
 
 @media print {
   @page {
-    margin: 0;
+    margin: 0 !important;
   }
 
   .section-wrapper {
     outline: none;
   }
 
-  .navbar, .toolbar, .placeholder {
+  .navbar,
+  .toolbar,
+  .placeholder {
     display: none;
   }
 
   .page {
     margin: 0;
     outline: none;
-    display: block!important;
-    overflow:visible!important;
-    height:auto!important;
-    position:static!important;
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+    position: static !important;
   }
 }
