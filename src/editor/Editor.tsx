@@ -19,15 +19,19 @@ export default function Editor() {
 
     const navigate = useNavigate()
 
+    const isCreating = useRef(false)
     useEffect(() => {
         if (id) return
+        if (isCreating.current) return
+
+        isCreating.current = true
         const create = async () => {
             const res = await newDocument({
                 ...createDocument(),
                 title: "New Document",
                 artist: "Me"
             })
-            navigate(`/editor/${res.id}`, { replace: true })
+            navigate(`/editor/${res.id}`)
         }
         create()
     }, [id])
@@ -49,11 +53,6 @@ export default function Editor() {
 
     useEffect(() => {
         documentRef.current = currentDoc
-
-        if (
-            currentDoc.sections[0]?.lineGroups[0]?.lines.length === 1 &&
-            currentDoc.sections[0]?.lineGroups[0]?.lines[0]?.text === ""
-        ) return
         setIsDirty(true)
     }, [currentDoc])
 

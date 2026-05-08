@@ -1,9 +1,23 @@
 .page {
     width: 210mm;
     height: 297mm;
-    outline: 1px solid #c7c7c7;
+    border: 1px solid #c7c7c7;
+    box-shadow: 0 2px 12px oklch(0 0 0 / 0.2);
     margin: auto;
     break-after: page;
+    background: white;
+}
+
+@media print {
+    .page {
+        margin: 0;
+        border: none;
+        display: block !important;
+        overflow: visible !important;
+        height: auto !important;
+        position: static !important;
+        box-shadow: none;
+    }
 }
 
 .title {

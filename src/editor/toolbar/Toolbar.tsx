@@ -1,4 +1,4 @@
-import { FormatAlignJustify, PlaylistAdd, Settings, VerticalSplit } from "@mui/icons-material"
+import { FormatAlignJustify, PlaylistAdd, PrintOutlined, Settings, VerticalSplit } from "@mui/icons-material"
 import { useDoc } from "../DocContext.tsx"
 import { useModal } from "../../context/ModalContext.tsx"
 import Overlay from "./overlay/Overlay.tsx"
@@ -87,6 +87,16 @@ export default function Toolbar() {
                         onClick={() => onITClick()}
                     >
                         Import Text
+                    </button>
+                </div>
+
+                <hr className="toolbar-divider" />
+
+                <div className="toolbar-print">
+                    <button
+                        onClick={print}
+                    >
+                        <PrintOutlined />
                     </button>
                 </div>
             </div>

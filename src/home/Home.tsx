@@ -31,7 +31,7 @@ export default function Home() {
 
     const onDeleteRequest = (id: string) => {
         deleteDocument(id)
-        fetchDocuments()
+            .then(() => fetchDocuments())
     }
 
     return (
@@ -49,22 +49,31 @@ export default function Home() {
                 <li className="document-list-title">
                     <span className="document-list-title-name">Name</span>
                 </li>
-                {documents.map(doc => (
-                    <li
-                        key={doc.id}
-                        className="document-item"
-                        onClick={() => navigate(`/editor/${doc.id}`)}
-                    >
-                        <Assignment />
-                        <div className="document-item-name">
-                            <span className="document-item-title">{doc.title}</span>
-                            <span className="document-item-artist">{doc.artist}</span>
-                        </div>
-                        <button className="document-delete-button" onClick={() => onDeleteRequest(doc.id)}>
-                            <DeleteForever />
-                        </button>
-                    </li>
-                ))}
+                {documents.length === 0
+                    ? <li className="document-empty-item">No Documents Yet</li>
+                    : documents.map(doc => (
+                        <li
+                            key={doc.id}
+                            className="document-item"
+                            onClick={() => navigate(`/editor/${doc.id}`)}
+                        >
+                            <div className="document-item-icon">
+                                <Assignment />
+                            </div>
+                            <div className="document-item-name">
+                                <span className="document-item-title">{doc.title}</span>
+                                <span className="document-item-artist">{doc.artist}</span>
+                            </div>
+                            <button
+                                className="document-delete-button"
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    onDeleteRequest(doc.id)
+                                }}>
+                                <DeleteForever />
+                            </button>
+                        </li>
+                    ))}
             </ul>
         </div>
     )

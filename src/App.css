@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #f6f6f6;
 }
 
 .navbar-link {
@@ -12,16 +11,18 @@
   text-align: center;
   padding: 16px;
   text-decoration: none;
+  transition: background-color 0.1s, color 0.2s;
+}
+
+.navbar-link:hover {
+  color: white;
+  background-color: var(--primary-500);
+}
+
+.navbar-link:focus {
+  outline: none;
 }
 
 .navbar-login {
   float: right;
-}
-
-.navbar li {
-  transition: background-color 0.1s;
-}
-
-.navbar li:hover {
-  background-color: #e0e0e0;
 }

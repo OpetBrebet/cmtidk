@@ -4,9 +4,9 @@ import AuthPage from "./auth/AuthPage"
 import Home from "./home/Home"
 import Editor from "./editor/Editor"
 import { DocProvider } from "./editor/DocContext.tsx"
+import { ModalProvider } from "./context/ModalContext.tsx"
 
 import "./App.css"
-import { ModalProvider } from "./context/ModalContext.tsx"
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { isSignedIn, isLoaded } = useAuth()

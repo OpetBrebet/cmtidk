@@ -2,7 +2,9 @@
     width: 100%;
     position: sticky;
     top: 0;
-    background-color: #f6f6f6;
+    background-color: var(--neutral-100);
+    border-bottom: 1px solid var(--neutral-400);
+    box-shadow: 0 8px 16px -4px var(--primary-200);
     z-index: var(--z-toolbar);
 
     display: flex;
@@ -19,7 +21,7 @@
 }
 
 .toolbar button:hover {
-    background-color: #e6e6e6;
+    background-color: var(--primary-200);
 }
 
 .toolbar input,
@@ -28,12 +30,12 @@
     height: 2.4em;
     background: none;
     border-radius: 8px;
-    border: 1px solid #d0d0d0;
+    border: 1px solid var(--primary-400);
 }
 
 .toolbar input:hover,
 .toolbar select:hover {
-    background-color: #e6e6e6;
+    background-color: var(--primary-400);
 }
 
 .toolbar select {

@@ -10,6 +10,12 @@
   transition: opacity 0.1s
 }
 
+@media print {
+  .line-toolbar-container {
+    display: none;
+  }
+}
+
 .line-toolbar-wrapper {
   display: flex;
   width: fit-content;

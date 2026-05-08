@@ -13,7 +13,7 @@
 }
 
 .modal-box {
-    background: #fff;
+    background: var(--neutral-100);
     padding: 2rem;
     border-radius: 8px;
     min-width: 20vw;
