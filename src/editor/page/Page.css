@@ -1,11 +1,11 @@
 .page {
     width: 210mm;
     height: 297mm;
-    border: 1px solid #c7c7c7;
+    border: 1px solid var(--border);
     box-shadow: 0 2px 12px oklch(0 0 0 / 0.2);
     margin: auto;
     break-after: page;
-    background: white;
+    background: var(--color-scheme);
 }
 
 @media print {
@@ -45,7 +45,7 @@
 
     border: 2px dashed black;
     opacity: 0;
-    background: rgba(255, 255, 255, 0.5);
+    background-color: oklch(from var(--color-scheme) l c h / 0.5);
     transition: opacity 0.15s, background 0.15s;
 
     display: flex;
@@ -59,13 +59,11 @@
 
 .section-add-line-offset.visible {
     opacity: 1;
-    background: rgba(255, 255, 255, 0.5);
-
     pointer-events: auto;
 }
 
 .section-add-line-offset.visible:hover {
-    background: rgba(255, 255, 255, 0.9);
+    background-color: oklch(from var(--color-scheme) l c h / 0.9);
 }
 
 .section-add-line-overlay {
@@ -78,12 +76,12 @@
 
     pointer-events: none;
 
-    background: rgba(0, 0, 0, 0);
+    background-color: oklch(0 0 0 / 0);
     transition: background 0.15s;
 }
 
 .section-add-line-overlay.visible {
     pointer-events: auto;
 
-    background: rgba(0, 0, 0, 0.3);
+    background-color: oklch(0 0 0 / 0.3);
 }

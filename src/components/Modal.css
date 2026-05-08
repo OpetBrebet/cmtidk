@@ -19,3 +19,7 @@
     min-width: 20vw;
     max-width: 480px;
 }
+
+.modal-title {
+    font-weight: 600;
+}

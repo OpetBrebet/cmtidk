@@ -20,8 +20,8 @@
   display: flex;
   width: fit-content;
   gap: 4px;
-  background: white;
-  border: 1px solid #ddd;
+  background-color: var(--surface);
+  border: 1px solid var(--neutral-300);
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   padding: 2px;
@@ -38,6 +38,12 @@
   height: 28px;
   width: 28px;
   padding: 4px;
+  display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--primary-100);
+}
+
+.line-toolbar-wrapper button:hover {
+  background-color: var(--primary-200);
 }

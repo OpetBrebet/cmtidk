@@ -9,7 +9,7 @@
 }
 
 .line-container.hoverable:hover {
-  background: #e0e0e0;
+  background: var(--neutral-200);
 }
 
 .line-container.selected {

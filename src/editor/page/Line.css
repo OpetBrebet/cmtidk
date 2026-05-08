@@ -32,10 +32,10 @@
 }
 
 .text-layer .placeholder {
-  color: #808080
+  color: var(--text-muted)
 }
 
 .letter.selectable:hover {
-  background-color: #ffff05;
+  background-color: var(--primary-300);
   cursor: pointer;
 }

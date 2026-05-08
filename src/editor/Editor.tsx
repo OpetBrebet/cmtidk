@@ -13,7 +13,7 @@ import "./variables.css"
 
 export default function Editor() {
     const { id } = useParams()
-    const { user } = useAuth()
+    const { user, isLoaded } = useAuth()
     const { getDocument, newDocument, updateDocument } = useApi()
     const { currentDoc, setCurrentDoc } = useDoc()
 
@@ -31,7 +31,7 @@ export default function Editor() {
                 title: "New Document",
                 artist: "Me"
             })
-            navigate(`/editor/${res.id}`)
+            navigate(`/editor/${res.id}`, { replace: true })
         }
         create()
     }, [id])
@@ -60,14 +60,15 @@ export default function Editor() {
         const interval = setInterval(() => {
             if (!id) return
             if (!isDirty) return
+            if (!isLoaded) return
+            if (documentRef.current.id !== id) return
 
-            updateDocument(id, currentDoc)
-
+            updateDocument(id, documentRef.current)
             setIsDirty(false)
         }, 5000)
 
         return () => clearInterval(interval)
-    }, [isDirty])
+    }, [isDirty, isLoaded, id])
 
     return (
         <div className="editor">

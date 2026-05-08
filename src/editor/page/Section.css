@@ -5,12 +5,12 @@
 }
 
 .section-wrapper.selectable {
-    outline: 1px solid #c7c7c7;
+    outline: 1px solid var(--border);
     cursor: pointer;
 }
 
 .section-wrapper.selectable:hover {
-    background-color: #e0e0e0;
+    background-color: var(--neutral-100);
 }
 
 .section-divider {
@@ -23,7 +23,7 @@
 .section-divider-line {
     width: 2px;
     border-radius: 4px;
-    background: #e0e0e0;
+    background-color: var(--neutral-300);
     height: 90%;
     transition: background 0.15s;
 }
@@ -31,7 +31,7 @@
 .section-divider:hover .section-divider-line {
     position: absolute;
     height: 100%;
-    background: #a6a6a6;
+    background-color: var(--primary-300);
     inset: 0 -1px;
     width: 4px
 }

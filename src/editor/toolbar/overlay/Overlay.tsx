@@ -24,7 +24,7 @@ export default function Overlay() {
         >
             <button
                 onClick={closeToolbar}
-                style={{ display: "flex", alignItems: "center" }}
+                className="toolbar-overlay-close"
             >
                 <Close />
             </button>

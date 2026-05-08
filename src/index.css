@@ -1,7 +1,7 @@
 /* colors */
 :root {
   --primary-100: oklch(0.98 0.02 40);
-  --primary-200: oklch(0.91 0.06 40);
+  --primary-200: oklch(0.93 0.06 40);
   --primary-300: oklch(0.84 0.10 40);
   --primary-400: oklch(0.77 0.12 40);
   /*main color*/
@@ -23,19 +23,26 @@
   --neutral-900: oklch(0.14 0.01 40);
   --neutral-1000: oklch(0.08 0.01 40);
 
-  --color-background: var(--neutral-100);
-  --color-surface: var(--neutral-200);
-  --color-text: var(--neutral-900);
-  --color-text-muted: var(--neutral-500);
-  --color-border: var(--neutral-300);
-  --color-primary: var(--primary-500);
+  --background: var(--neutral-100);
+  --surface: var(--neutral-200);
+  --text: var(--neutral-900);
+  --text-muted: var(--neutral-500);
+  --border: var(--neutral-300);
+  --primary: var(--primary-500);
+
+  --green: oklch(0.8 0.25 142);
+  --yellow: oklch(0.98 0.18 103);
+  --red: oklch(0.63 0.2 28);
+
+  /* should be black if dark mode */
+  --color-scheme: white;
 }
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
 
-  background-color: var(--color-background);
+  background-color: var(--background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

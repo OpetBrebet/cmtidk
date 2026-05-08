@@ -6,7 +6,7 @@
 
     display: flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0.5em 8px;
     gap: 8px;
 
     opacity: 0;
@@ -18,4 +18,17 @@
 .toolbar-overlay.visible {
     opacity: 1;
     pointer-events: auto;
+}
+
+.toolbar-overlay-close {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-overlay-close:hover {
+    color: var(--red);
+}
+
+.toolbar-overlay-close:active {
+    color: var(--red);
 }
