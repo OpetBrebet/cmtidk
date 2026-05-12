@@ -10,6 +10,7 @@ import Toolbar from "./toolbar/Toolbar.tsx"
 
 import "./Editor.css"
 import "./variables.css"
+import { hydrateDocument } from "./utils.ts"
 
 export default function Editor() {
     const { id } = useParams()
@@ -42,7 +43,7 @@ export default function Editor() {
         setCurrentDoc(prev => ({ ...prev, id: id }))
         const loadDocument = async () => {
             const snapshot = await getDocument(id);
-            setCurrentDoc(prev => ({ ...prev, ...snapshot, id }))
+            setCurrentDoc(hydrateDocument({ ...snapshot, id }))
         }
 
         loadDocument()

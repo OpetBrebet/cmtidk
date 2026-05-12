@@ -1,6 +1,6 @@
 import { useDoc } from '../DocContext'
-import Line from "./Line"
-import LineToolbar from "./LineToolbar"
+import Line from "./line/Line"
+import LineToolbar from "./line/LineToolbar"
 import type { LineGroup as LineGroupType, Section as SectionType } from "../types"
 
 import "./LineGroup.css"

@@ -1,9 +1,16 @@
-import type { Document, DocSettings, Chord, Line, Margins, EditorState, LineGroup, Section } from "./types"
+import type { Document, DocSettings, Chord, Line, Margins, EditorState, LineGroup, Section, LineSettings } from "./types"
 
 export const createLine = (): Line => ({
     id: crypto.randomUUID(),
     text: "",
-    chords: []
+    chords: [],
+    settings: createLineSettings()
+})
+
+export const createLineSettings = (): LineSettings => ({
+    bold: false,
+    italic: false,
+    underline: false
 })
 
 export const createLineGroup = (): LineGroup => ({

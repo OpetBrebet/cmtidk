@@ -1,20 +1,22 @@
-import { Add, ArrowDownward, ArrowUpward, Check, DeleteOutline } from "@mui/icons-material"
+import { Add, ArrowDownward, ArrowUpward, Check, DeleteOutline, Tune } from "@mui/icons-material"
 
-import { useDoc } from "../DocContext"
-import { createLine } from "../factories"
-import type { Line as LineType, LineGroup as LineGroupType, Section as SectionType } from "../types"
+import { useDoc } from "../../DocContext"
+import { createLine } from "../../factories"
+import { useModal } from "../../../context/ModalContext.tsx"
+import type { Line as LineType, LineGroup as LineGroupType, Section as SectionType } from "../../types"
 
 import "./LineToolbar.css"
+import LineSettings from "./LineSettings.tsx"
 
 type LineToolbarProps = {
     line: LineType
     lineGroup: LineGroupType
     section: SectionType
-
 }
 
 export default function LineToolbar({ line, lineGroup, section }: LineToolbarProps) {
     const { currentDoc, setCurrentDoc, editorState, setEditorState } = useDoc()
+    const { openModal } = useModal()
 
     const isVisible = (editorState.editingMode === null) && (editorState.editingLineId === line.id)
 
@@ -112,6 +114,17 @@ export default function LineToolbar({ line, lineGroup, section }: LineToolbarPro
         }))
     }
 
+    const onSettingsClick = () => {
+        openModal({
+            title: "Line Settings",
+            content: <LineSettings
+                lineId={line.id}
+                lineGroupId={lineGroup.id}
+                sectionId={section.id}
+            />
+        })
+    }
+
     return (
         <div className={`line-toolbar-wrapper ${isVisible && 'visible'}`}>
             <button
@@ -119,6 +132,12 @@ export default function LineToolbar({ line, lineGroup, section }: LineToolbarPro
                 onClick={addLine}
             >
                 <Add fontSize="small" />
+            </button>
+            <button
+                className="button-delete-line"
+                onClick={deleteLine}
+            >
+                <DeleteOutline fontSize="small" />
             </button>
             <button
                 className="button-move-line-up"
@@ -133,10 +152,12 @@ export default function LineToolbar({ line, lineGroup, section }: LineToolbarPro
                 <ArrowDownward fontSize="small" />
             </button>
             <button
-                className="button-delete-line"
-                onClick={deleteLine}
+                className="button-line-settings"
+                onClick={() => {
+                    onSettingsClick()
+                }}
             >
-                <DeleteOutline fontSize="small" />
+                <Tune fontSize="small" />
             </button>
             <button
                 className="button-edit-line"

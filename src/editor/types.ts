@@ -9,6 +9,13 @@ export type Line = {
     id: string
     text: string
     chords: Chord[]
+    settings: LineSettings
+}
+
+export type LineSettings = {
+    bold: boolean
+    italic: boolean
+    underline: boolean
 }
 
 export type LineGroup = {

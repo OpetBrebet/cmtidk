@@ -47,3 +47,12 @@
 .line-toolbar-wrapper button:hover {
   background-color: var(--primary-200);
 }
+
+button.button-edit-line {
+  background-color: var(--primary-500);
+  color: white;
+}
+
+button.button-edit-line:hover {
+  background-color: var(--primary-600);
+}

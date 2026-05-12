@@ -3,9 +3,9 @@ import {
     useLayoutEffect,
     useState
 } from "react"
-import { numberToNote } from "../../lib/music"
-import { useDoc } from "../DocContext.tsx"
-import type { LineGroup as LineGroupType, Line as LineType, Chord as ChordType, Section as SectionType } from "../types.ts"
+import { numberToNote } from "../../../lib/music"
+import { useDoc } from "../../DocContext.tsx"
+import type { LineGroup as LineGroupType, Line as LineType, Chord as ChordType, Section as SectionType } from "../../types.ts"
 
 import "./Line.css"
 
@@ -160,7 +160,11 @@ export default function Line({ line, lineGroup, section }: LineProps) {
             {isEditing ? (
                 <input
                     ref={editRef}
-                    className="text-input"
+                    className={`text-input
+                        ${line.settings.bold ? "bold" : ""}
+                        ${line.settings.italic ? "italic" : ""}
+                        ${line.settings.underline ? "underline" : ""}
+                    `}
                     contentEditable
                     autoFocus
                     defaultValue={line.text}
@@ -189,7 +193,11 @@ export default function Line({ line, lineGroup, section }: LineProps) {
                             </span>
                         )}
                     </div>
-                    <div className="text-layer">
+                    <div className={`text-layer
+                        ${line.settings.bold ? "bold" : ""}
+                        ${line.settings.italic ? "italic" : ""}
+                        ${line.settings.underline ? "underline" : ""}
+                    `}>
                         {line.text ? line.text.split("").map((char, i) => (
                             <span
                                 key={i}

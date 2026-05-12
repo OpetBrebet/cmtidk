@@ -17,10 +17,10 @@
 @media print {
   @page {
     margin: 0 !important;
-    size: A4;
   }
 
-  html, body {
+  html,
+  body {
     width: 210mm;
     height: 297mm;
   }
