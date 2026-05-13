@@ -1,0 +1,1 @@
+ALTER TABLE `document_shares` ADD `name` text NOT NULL;

@@ -1,9 +1,10 @@
-import { FormatAlignJustify, PlaylistAdd, PrintOutlined, Settings, VerticalSplit } from "@mui/icons-material"
+import { FormatAlignJustify, PersonAddAlt1, PlaylistAdd, PrintOutlined, Settings, VerticalSplit } from "@mui/icons-material"
 import { useDoc } from "../DocContext.tsx"
 import { useModal } from "../../context/ModalContext.tsx"
 import Overlay from "./overlay/Overlay.tsx"
 import ProjectSettings from "./ProjectSettings.tsx"
 import ImportText from "./ImportText.tsx"
+import ShareDocument from "./ShareDocument.tsx"
 import type { EditingMode as EditingModeType } from "../types.ts"
 
 import "./Toolbar.css"
@@ -30,6 +31,14 @@ export default function Toolbar() {
         openModal({
             title: "Import Text",
             content: <ImportText />
+        })
+    }
+
+    const onShareClick = () => {
+        openModal({
+            width: 720,
+            title: "Share Document",
+            content: <ShareDocument />
         })
     }
 
@@ -97,6 +106,16 @@ export default function Toolbar() {
                         onClick={print}
                     >
                         <PrintOutlined />
+                    </button>
+                </div>
+
+                <div className="toolbar-share">
+                    <button
+                        className="toolbar-share-button"
+                        onClick={onShareClick}
+                    >
+                        <PersonAddAlt1 />
+                        Share Document
                     </button>
                 </div>
             </div>

@@ -54,15 +54,12 @@ export type Document = {
     sections: Section[]
 }
 
-export type FirestoreDocument = {
-    createdAt: number
-    docSettings: DocSettings
-
-    title: string
-    artist: string
-
-    musicRoot: number
-    sections: Section[]
+export type DocumentShare = {
+    id: string
+    name: string
+    documentId: string
+    userId: string
+    role: "viewer" | "editor"
 }
 
 export type EditingMode =

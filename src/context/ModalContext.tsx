@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Modal } from "../components/Modal"
 
 type ModalContent = {
+    width?: number
     title?: string
     content: ReactNode
 }
@@ -24,7 +25,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
         <ModalContext.Provider value={{ openModal, closeModal }}>
             {children}
             {modal && createPortal(
-                <Modal isOpen={true} onClose={closeModal} title={modal.title}>
+                <Modal isOpen={true} onClose={closeModal} width={modal.width} title={modal.title}>
                     {modal.content}
                 </Modal>,
                 document.body

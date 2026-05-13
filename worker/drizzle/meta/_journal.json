@@ -8,6 +8,27 @@
       "when": 1777043400605,
       "tag": "0000_wandering_xorn",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1778596984212,
+      "tag": "0001_futuristic_reavers",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1778599432807,
+      "tag": "0002_lean_epoch",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1778599533650,
+      "tag": "0003_new_vampiro",
+      "breakpoints": true
     }
   ]
 }

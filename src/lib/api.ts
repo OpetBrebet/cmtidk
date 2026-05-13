@@ -41,11 +41,45 @@ export function useApi() {
         })
     }
 
+    async function getDocShares(id: string) {
+        return apiFetch(`/api/documents/${id}/shares`)
+    }
+
+    async function newDocShare(id: string, email: string, role: "viewer" | "editor") {
+        return apiFetch(`/api/documents/${id}/shares`, {
+            method: "POST",
+            body: JSON.stringify({
+                email: email,
+                role: role
+            })
+        })
+    }
+
+    async function updateDocShare(docId: string, shareId: string, role: "viewer" | "editor") {
+        return apiFetch(`/api/documents/${docId}/shares/${shareId}`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                role: role
+            })
+        })
+    }
+
+    async function deleteDocShare(docId: string, shareId: string) {
+        return apiFetch(`/api/documents/${docId}/shares/${shareId}`, {
+            method: "DELETE"
+        })
+    }
+
     return {
         getDocuments,
         getDocument,
         newDocument,
         updateDocument,
-        deleteDocument
+        deleteDocument,
+        getDocShares,
+        newDocShare,
+        updateDocShare,
+        deleteDocShare
+
     }
 }

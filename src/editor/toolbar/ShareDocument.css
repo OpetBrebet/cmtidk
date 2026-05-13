@@ -1,0 +1,72 @@
+.document-share-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.document-share-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 192px;
+}
+
+.document-share-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.document-share-item span {
+    margin-right: auto;
+}
+
+.document-share-item select {
+    height: 2.5em;
+    width: 6em;
+    padding: 0 8px;
+    border: none;
+}
+
+.document-share-item select:hover {
+    cursor: pointer;
+}
+
+.document-share-item button {
+    display: flex;
+    padding: 0px;
+    height: 36px;
+    width: 36px;
+    align-items: center;
+    justify-content: center;
+}
+
+.document-share-add {
+    display: flex;
+    height: 2em;
+    gap: 8px;
+}
+
+.document-share-add input {
+    width: 100%;
+}
+
+.document-share-add button {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    color: var(--primary-500);
+    font-weight: 600;
+    outline: 1px solid var(--primary-500);
+    transition: background-color 0.05s, color 0.05s;
+}
+
+.document-share-add button:hover {
+    background-color: var(--primary-500);
+    color: white;
+}
+
+.document-share-add button:active {
+    background-color: var(--primary-600);
+}

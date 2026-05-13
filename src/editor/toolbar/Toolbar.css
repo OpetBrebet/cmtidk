@@ -43,10 +43,11 @@
 }
 
 .toolbar-contents {
-    padding: 0.5em 0;
+    padding: 0.5em 0.2em;
     display: flex;
     align-items: center;
     gap: 0.2em;
+    width: 100%;
 }
 
 .toolbar-contents>div {
@@ -63,10 +64,24 @@
     margin: 0;
 }
 
-.toolbar-settings-button {
+.toolbar-settings-button,
+.toolbar-share-button {
     display: flex;
     align-items: center;
     gap: 0.3em
+}
+
+.toolbar-share {
+    margin-left: auto;
+}
+
+button.toolbar-share-button {
+    background-color: var(--primary-500);
+    color: white;
+}
+
+button.toolbar-share-button:hover {
+    background-color: var(--primary-600);
 }
 
 .toolbar-chords {
